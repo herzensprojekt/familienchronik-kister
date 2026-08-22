@@ -1786,9 +1786,9 @@ abzüglich 57.000,00
     },
     {
       kicker: "1981 · Ein neuer Enkel",
-      title: "Und dann kam Markus",
+      title: "Ein Enkelsohn wird erwähnt",
       quote: "„Er ist verheiratet, und seine Frau ist Realschullehrerin, sie haben einen kleinen Sohn von 10 Monaten.“",
-      text: "Franziska schreibt 1981 über ihre Enkelkinder – darunter, kaum erwähnt, ein zehn Monate alter Junge namens Markus. Genau der, der diese Chronik heute digitalisiert hat.",
+      text: "Franziska schreibt 1981 beiläufig über ihre Enkelkinder – darunter ein zehn Monate alter Junge namens Markus.",
       link: "#kap-franziska-erzaehlt", linkLabel: "Kapitel 4 lesen"
     },
     {
@@ -1797,6 +1797,22 @@ abzüglich 57.000,00
       quote: "„Ende der Testamentsergänzung!“",
       text: "Mit einer minutiösen Geldrechnung für ihre Kinder Doris, Günter und Gisela endet die 101-seitige Chronik – unterschrieben von Josef und Franziska Kister.",
       link: "#kap-eltern-der-frau", linkLabel: "Kapitel 6 lesen"
+    },
+    {
+      kicker: "Heute · zwei weitere Enkel",
+      title: "Markus und Martina",
+      text: "Nach dem Ende dieser Chronik kamen noch zwei weitere Enkelkinder zur Welt: Markus, geboren am 3. März 1980, und seine Schwester Martina, geboren am 2. März 1986."
+    },
+    {
+      kicker: "Heute · Familie Kister",
+      title: "Die nächste Generation",
+      text: "Markus lebt mit seiner Familie in Ratingen-Breitscheid und ist selbstständig mit einem eigenen Onlineshop. Mit seiner Frau Henrike, geborene Hartrampf (* 4.11.1982, Lehrerin), inzwischen getrennt, hat er zwei Kinder: Noah, geboren am 12. Juli 2015 in Velbert, und Lina, geboren am 2. April 2018 in Duisburg."
+    },
+    {
+      kicker: "Heute · 2026",
+      title: "Was die Zukunft bringen mag",
+      text: "Was die Zukunft dieser Familie bringen wird – zwischen Umweltkrisen, Kriegen und dem rasanten Fortschritt der Künstlichen Intelligenz – bleibt so ungewiss, wie es für jede Generation vor ihr war.",
+      link: "#inhalt", linkLabel: "Zurück zum Anfang"
     }
     ];
   }
@@ -1836,10 +1852,21 @@ abzüglich 57.000,00
       }
       kickerEl.textContent = card.kicker;
       titleEl.textContent = card.title;
-      quoteEl.textContent = card.quote;
+      if (card.quote){
+        quoteEl.textContent = card.quote;
+        quoteEl.style.display = "";
+      } else {
+        quoteEl.textContent = "";
+        quoteEl.style.display = "none";
+      }
       textEl.textContent = card.text;
-      linkEl.href = card.link;
-      linkLabelEl.textContent = card.linkLabel;
+      if (card.link){
+        linkEl.href = card.link;
+        linkLabelEl.textContent = card.linkLabel;
+        linkEl.style.display = "";
+      } else {
+        linkEl.style.display = "none";
+      }
       counterEl.textContent = (idx + 1) + " / " + TOUR_CARDS.length;
       prevBtn.disabled = idx === 0;
       nextBtn.disabled = idx === TOUR_CARDS.length - 1;
