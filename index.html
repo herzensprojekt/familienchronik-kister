@@ -6,7 +6,7 @@
 <title>Chronik der Familie Josef-Heinz Kister</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#f4ecd9;
@@ -26,13 +26,13 @@
       radial-gradient(ellipse at top left, rgba(169,119,47,0.07), transparent 60%),
       radial-gradient(ellipse at bottom right, rgba(122,51,19,0.06), transparent 60%);
     color:var(--ink);
-    font-family:'EB Garamond', Georgia, serif;
-    font-size:19px;
-    line-height:1.65;
+    font-family:'Lora', Georgia, serif;
+    font-size:20px;
+    line-height:1.75;
   }
   a{color:var(--accent);}
-  h1,h2,h3,h4{font-family:'Cinzel', serif; color:var(--accent); letter-spacing:0.02em; font-weight:600;}
-  .frak{font-family:'UnifrakturMaguntia', cursive; font-weight:400;}
+  h1,h2,h3,h4{font-family:'Lora', Georgia, serif; color:var(--accent); font-weight:700;}
+  .frak{font-family:'Dancing Script', cursive; font-weight:700;}
 
   header.topbar{
     position:sticky; top:0; z-index:50;
@@ -43,7 +43,7 @@
     display:flex; align-items:center; justify-content:space-between; gap:12px;
     flex-wrap:wrap;
   }
-  header.topbar .brand{font-family:'Cinzel',serif; font-weight:700; color:var(--accent); font-size:15px; letter-spacing:0.05em; text-transform:uppercase;}
+  header.topbar .brand{font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:16px;}
   nav.chapters{display:flex; gap:14px; flex-wrap:wrap; font-size:14px;}
   nav.chapters a{color:var(--ink-soft); text-decoration:none; border-bottom:1px dotted transparent; padding:2px 0;}
   nav.chapters a:hover{color:var(--accent); border-bottom-color:var(--accent);}
@@ -89,13 +89,13 @@
   }
   section.chronik-seite::before{display:none;}
   section.chronik-seite h3{
-    font-size:14px; text-transform:uppercase; letter-spacing:0.12em;
+    font-size:15px; font-family:'Lora',serif; font-weight:600; font-style:italic;
     color:var(--gold); margin:0 0 10px; text-align:right;
   }
   section.chronik-seite p{margin:0 0 14px;}
   section.chronik-seite ul{margin:0 0 14px 0; padding-left:22px;}
   section.chronik-seite li{margin-bottom:6px;}
-  section.chronik-seite strong{color:var(--accent); font-family:'Cinzel',serif; font-size:16px;}
+  section.chronik-seite strong{color:var(--accent); font-family:'Lora',serif; font-weight:700; font-size:1em;}
   section.chronik-seite em{color:var(--ink-soft);}
   .chronik-wrapper h2{max-width:var(--maxw); margin:50px auto 0; text-align:center;}
   .chronik-wrapper .intro{max-width:var(--maxw); margin:0 auto 20px; text-align:center; font-style:italic; color:var(--ink-soft); font-size:15px;}
@@ -103,7 +103,7 @@
 
   table.gen{width:100%; border-collapse:collapse; margin:14px 0; font-size:16px;}
   table.gen td, table.gen th{padding:6px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
-  table.gen th{text-align:left; color:var(--accent); font-family:'Cinzel',serif; font-weight:600; font-size:14px; text-transform:uppercase;}
+  table.gen th{text-align:left; color:var(--accent); font-family:'Lora',serif; font-weight:700; font-size:15px;}
 
   .tree{margin:10px 0 24px;}
   .tree .person{margin:4px 0; padding:8px 12px; background:rgba(169,119,47,0.08); border-left:3px solid var(--gold);}
@@ -122,8 +122,8 @@
   }
   .portraits figure{margin:0; width:280px;}
   .portraits img{width:100%; border-radius:4px; box-shadow:0 8px 26px rgba(58,43,24,0.3); border:1px solid var(--line);}
-  .portraits figcaption{margin-top:12px; font-family:'Cinzel',serif; color:var(--accent); font-size:16px;}
-  .portraits figcaption small{display:block; color:var(--ink-soft); font-family:'EB Garamond',serif; font-size:14px; font-style:italic; margin-top:4px;}
+  .portraits figcaption{margin-top:12px; font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:17px;}
+  .portraits figcaption small{display:block; color:var(--ink-soft); font-family:'Lora',serif; font-size:15px; font-style:italic; margin-top:4px;}
 
   .illu-grid{
     display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:34px;
@@ -131,7 +131,7 @@
   }
   .illu-grid figure{margin:0;}
   .illu-grid img{width:100%; border-radius:4px; box-shadow:0 8px 26px rgba(58,43,24,0.25); border:1px solid var(--line);}
-  .illu-grid figcaption{margin-top:10px; font-family:'EB Garamond',serif; font-style:italic; color:var(--ink-soft); font-size:14px; text-align:center;}
+  .illu-grid figcaption{margin-top:10px; font-family:'Lora',serif; font-style:italic; color:var(--ink-soft); font-size:15px; text-align:center;}
 
   footer{
     text-align:center; padding:40px 20px 70px; color:var(--ink-soft); font-size:14px;
@@ -150,9 +150,9 @@
   }
   .toc a::before{
     content:counter(tocnum) ".";
-    color:var(--gold); font-family:'Cinzel',serif; font-weight:600; min-width:22px;
+    color:var(--gold); font-family:'Lora',serif; font-weight:700; min-width:22px;
   }
-  .toc a .toc-title{font-weight:600; color:var(--accent); font-family:'Cinzel',serif; font-size:15px; letter-spacing:0.01em;}
+  .toc a .toc-title{font-weight:700; color:var(--accent); font-family:'Lora',serif; font-size:16px;}
   .toc a .toc-range{margin-left:auto; color:var(--ink-soft); font-size:14px; font-style:italic; white-space:nowrap;}
   .toc a:hover .toc-title{text-decoration:underline;}
   .toc .toc-sub{padding-left:32px; font-size:14px; color:var(--ink-soft); margin:-4px 0 8px;}
@@ -177,16 +177,16 @@
     background:var(--paper-dark); border:1px solid var(--line);
     padding:40px 30px; border-radius:4px;
   }
-  .lock-box .frak{font-size:32px; display:block; margin-bottom:6px;}
-  .lock-box p{color:var(--ink-soft); font-size:15px; margin:0 0 22px;}
+  .lock-box .frak{font-size:38px; display:block; margin-bottom:8px; line-height:1.3;}
+  .lock-box p{color:var(--ink-soft); font-size:16px; margin:0 0 22px;}
   .lock-box input[type=password]{
-    width:100%; padding:11px 12px; font-size:16px; font-family:'EB Garamond',serif;
+    width:100%; padding:11px 12px; font-size:17px; font-family:'Lora',serif;
     border:1px solid var(--line); border-radius:3px; background:var(--paper);
     color:var(--ink); margin-bottom:14px;
   }
   .lock-box button{
-    width:100%; padding:11px 12px; font-size:15px; font-family:'Cinzel',serif; font-weight:600;
-    letter-spacing:0.03em; background:var(--accent); color:var(--paper); border:none;
+    width:100%; padding:12px 12px; font-size:16px; font-family:'Lora',serif; font-weight:700;
+    background:var(--accent); color:var(--paper); border:none;
     border-radius:3px; cursor:pointer;
   }
   .lock-box button:hover{background:#5f2810;}
