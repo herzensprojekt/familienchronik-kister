@@ -175,10 +175,6 @@
   section.chronik-seite p:has(> strong:first-child){
     margin-top:26px; padding-top:18px; border-top:1px dashed var(--line);
   }
-  section.chronik-seite p:first-of-type:not(:has(> em:only-child))::first-letter{
-    font-family:'Lora',serif; font-weight:700; color:var(--gold);
-    font-size:2.6em; line-height:0.85; float:left; margin:0.04em 0.08em 0 0;
-  }
 
   /* --- chapter openers --- */
   .chapter-opener{
@@ -253,16 +249,17 @@
     transition:transform 0.15s, box-shadow 0.15s, border-color 0.15s;
   }
   .toc-card:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:var(--gold);}
-  .toc-card-top{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .toc-card-top{display:flex; align-items:flex-start; gap:10px;}
   .toc-num{
-    flex:none; width:30px; height:30px; border-radius:50%;
-    background:var(--gold); color:#fff; font-family:'Inter',sans-serif; font-weight:700; font-size:13px;
+    flex:none; width:26px; height:26px; margin-top:1px; border-radius:50%;
+    background:var(--gold); color:#fff; font-family:'Inter',sans-serif; font-weight:700; font-size:12px;
     display:flex; align-items:center; justify-content:center;
   }
+  .toc-headtext{flex:1; min-width:0; display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px;}
   .toc-title{font-weight:700; color:var(--ink); font-family:'Lora',serif; font-size:18px; line-height:1.3;}
   .toc-range{
-    font-family:'Inter',sans-serif; font-size:13px; font-weight:600; color:var(--gold);
-    background:rgba(169,131,42,0.12); padding:3px 10px; border-radius:6px; white-space:nowrap; align-self:flex-start;
+    font-family:'Inter',sans-serif; font-size:12.5px; font-weight:600; color:var(--gold);
+    background:rgba(169,131,42,0.12); padding:2px 9px; border-radius:6px; white-space:nowrap;
   }
   .toc-sub{font-size:16.5px; color:var(--ink-soft); line-height:1.5; margin:0;}
   .toc-status{
@@ -302,6 +299,99 @@
   }
   .lock-box button:hover{background:var(--gold-bright);}
   .lock-box .lock-error{color:#e2735f; font-size:14px; margin-top:12px; display:none;}
+
+  /* --- tour button (nav + cover) --- */
+  .nav-tour{
+    display:inline-flex; align-items:center; gap:6px;
+    background:transparent; color:var(--gold); font-weight:700;
+    border:1.5px solid var(--gold); border-radius:8px; padding:6.5px 14px 6.5px 12px;
+    font-family:'Inter',sans-serif; font-size:14.5px; cursor:pointer; margin-left:4px;
+    transition:background 0.15s, color 0.15s;
+  }
+  .nav-tour:hover{background:var(--gold); color:#fff;}
+  .nav-tour svg{width:15px; height:15px; flex:none;}
+  .cover .cta.secondary{
+    background:transparent; color:var(--gold); border:1.5px solid var(--gold);
+    box-shadow:none;
+  }
+  .cover .cta.secondary:hover{background:var(--gold); color:#fff;}
+  .cover .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px;}
+  .cover .cta-row .cta{margin-top:0;}
+
+  /* --- tour overlay --- */
+  #tour-overlay{
+    display:none; position:fixed; inset:0; z-index:900;
+    align-items:center; justify-content:center; padding:18px;
+    background:rgba(26,24,20,0.6);
+  }
+  #tour-overlay.open{display:flex;}
+  .tour-modal{
+    position:relative; width:100%; max-width:460px; max-height:min(760px, 92vh);
+    display:flex; flex-direction:column;
+    background:var(--card); border-radius:18px; overflow:hidden;
+    box-shadow:0 20px 60px rgba(20,16,8,0.35);
+  }
+  .tour-close{
+    position:absolute; top:12px; right:12px; z-index:5;
+    width:34px; height:34px; border-radius:9px; border:none;
+    background:rgba(26,26,24,0.45); color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    backdrop-filter:blur(2px);
+  }
+  .tour-close svg{width:17px; height:17px;}
+  .tour-progress{
+    display:flex; gap:5px; padding:14px 18px 0;
+  }
+  .tour-progress i{
+    flex:1; height:3px; border-radius:3px; background:var(--line); overflow:hidden;
+  }
+  .tour-progress i.done, .tour-progress i.current{background:var(--gold);}
+  .tour-media{
+    width:100%; aspect-ratio:16/10; overflow:hidden; background:var(--paper-dark); flex:none;
+  }
+  .tour-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  .tour-media.tour-media-empty{
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio:16/9; background:linear-gradient(135deg, rgba(169,131,42,0.14), rgba(169,131,42,0.04));
+  }
+  .tour-media.tour-media-empty span{font-family:'Dancing Script',cursive; font-size:44px; color:var(--gold);}
+  .tour-body{padding:22px 26px 26px; overflow-y:auto;}
+  .tour-kicker{
+    display:inline-block; font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px;
+    color:var(--gold); background:rgba(169,131,42,0.12); padding:3px 11px; border-radius:6px;
+    margin-bottom:12px;
+  }
+  .tour-title{font-family:'Lora',serif; font-weight:700; font-size:23px; color:var(--ink); margin:0 0 14px; line-height:1.3;}
+  .tour-quote{
+    font-family:'Lora',serif; font-style:italic; font-size:18px; line-height:1.5; color:var(--ink);
+    margin:0 0 14px; padding-left:16px; border-left:3px solid var(--gold);
+  }
+  .tour-text{font-size:15.5px; line-height:1.6; color:var(--ink-soft); margin:0 0 16px;}
+  .tour-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:14px; color:var(--gold); text-decoration:none;
+  }
+  .tour-link:hover{text-decoration:underline;}
+  .tour-link svg{width:14px; height:14px;}
+  .tour-nav{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:0 18px 18px; flex:none;
+  }
+  .tour-arrow{
+    width:42px; height:42px; border-radius:11px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:background 0.15s, border-color 0.15s;
+  }
+  .tour-arrow:hover{background:var(--paper); border-color:var(--gold);}
+  .tour-arrow:disabled{opacity:0.35; cursor:default;}
+  .tour-arrow:disabled:hover{background:var(--card); border-color:var(--line);}
+  .tour-arrow svg{width:19px; height:19px;}
+  .tour-counter{font-family:'Inter',sans-serif; font-size:13px; font-weight:600; color:var(--ink-soft);}
+  @media (max-width:520px){
+    .tour-modal{max-height:94vh;}
+    .tour-title{font-size:21px;}
+    .tour-quote{font-size:16.5px;}
+  }
 </style>
 </head>
 <body class="locked">
@@ -333,6 +423,10 @@
     <a href="#chronik">Chronik</a>
     <a href="#illustrationen">Illustrationen</a>
     <a href="#bilder">Bilder</a>
+    <button type="button" id="tour-open-btn-nav" class="nav-tour">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+      <span>Kurztour</span>
+    </button>
   </nav>
 </header>
 
@@ -345,11 +439,45 @@
   <img class="titel" src="images/titelseite.jpg" alt="Titelseite: Chronik der Familie Josef-Heinz Kister">
   <div class="subtitle">angelegt 1953 von Josef Kister</div>
   <div class="subtitle2">Digitalisiert und transkribiert 2026</div>
-  <br>
-  <a class="cta" href="#inhalt">
-    <span>Chronik lesen</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-  </a>
+  <div class="cta-row">
+    <a class="cta" href="#inhalt">
+      <span>Chronik lesen</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+    <a class="cta secondary" href="#" id="tour-open-btn-cover">
+      <span>Kurztour ansehen</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    </a>
+  </div>
+</div>
+
+<div id="tour-overlay" role="dialog" aria-modal="true" aria-label="Kurztour durch die Chronik">
+  <div class="tour-modal">
+    <button type="button" class="tour-close" id="tour-close-btn" aria-label="Tour schlie&szlig;en">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="tour-progress" id="tour-progress"></div>
+    <div id="tour-media-slot"></div>
+    <div class="tour-body">
+      <span class="tour-kicker" id="tour-kicker"></span>
+      <h3 class="tour-title" id="tour-title"></h3>
+      <blockquote class="tour-quote" id="tour-quote"></blockquote>
+      <p class="tour-text" id="tour-text"></p>
+      <a class="tour-link" id="tour-link" href="#">
+        <span id="tour-link-label"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+    <div class="tour-nav">
+      <button type="button" class="tour-arrow" id="tour-prev-btn" aria-label="Vorherige Karte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <span class="tour-counter" id="tour-counter"></span>
+      <button type="button" class="tour-arrow" id="tour-next-btn" aria-label="N&auml;chste Karte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
 </div>
 
 <section id="inhalt" class="toc">
@@ -366,8 +494,10 @@
       <a class="toc-card" href="#kap-leben-wirken">
         <div class="toc-card-top">
           <span class="toc-num">1</span>
-          <span class="toc-title">&bdquo;Mein Leben und Wirken&ldquo;</span>
-          <span class="toc-range">Buchseite 12&ndash;68</span>
+          <div class="toc-headtext">
+            <span class="toc-title">&bdquo;Mein Leben und Wirken&ldquo;</span>
+            <span class="toc-range">Buchseite 12&ndash;68</span>
+          </div>
         </div>
         <p class="toc-sub">Josef Kisters eigene Lebenserz&auml;hlung: Kindheit in Essen, Inflation, Ruhrbesetzung, Lehr- und Studienzeit, Krieg, Wiederaufbau, Familie, Krankheit, chronologische Jahresr&uuml;ckblicke bis 1983.</p>
       </a>
@@ -376,8 +506,10 @@
       <a class="toc-card" href="#kap-eltern">
         <div class="toc-card-top">
           <span class="toc-num">2</span>
-          <span class="toc-title">&bdquo;Aus dem Leben meiner Eltern&ldquo;</span>
-          <span class="toc-range">Buchseite 69&ndash;78</span>
+          <div class="toc-headtext">
+            <span class="toc-title">&bdquo;Aus dem Leben meiner Eltern&ldquo;</span>
+            <span class="toc-range">Buchseite 69&ndash;78</span>
+          </div>
         </div>
         <p class="toc-sub">Buchseiten 69&ndash;74: Josefs Vater Johann-Georg Kister (1874&ndash;1941) &uuml;ber seinen Vater Georg-Johann Kister (1838&ndash;1919) und sich selbst. Buchseiten 75&ndash;78 (unterschrieben, 1948): Josefs Mutter Johanna Marie Kister geb. Spiegel &uuml;ber ihre eigenen Eltern und ihr Leben.</p>
       </a>
@@ -386,8 +518,10 @@
       <a class="toc-card" href="#kap-laudatio">
         <div class="toc-card-top">
           <span class="toc-num">3</span>
-          <span class="toc-title">&bdquo;Laudatio&ldquo; &ndash; Josef &uuml;ber seine Eltern</span>
-          <span class="toc-range">Buchseite 79</span>
+          <div class="toc-headtext">
+            <span class="toc-title">&bdquo;Laudatio&ldquo; &ndash; Josef &uuml;ber seine Eltern</span>
+            <span class="toc-range">Buchseite 79</span>
+          </div>
         </div>
         <p class="toc-sub">Sp&auml;terer Nachtrag von Josef Kister, datiert 10.1.1981.</p>
       </a>
@@ -396,8 +530,10 @@
       <a class="toc-card" href="#kap-franziska-erzaehlt">
         <div class="toc-card-top">
           <span class="toc-num">4</span>
-          <span class="toc-title">Franziska Kister erz&auml;hlt ihr eigenes Leben</span>
-          <span class="toc-range">Buchseite 80&ndash;91</span>
+          <div class="toc-headtext">
+            <span class="toc-title">Franziska Kister erz&auml;hlt ihr eigenes Leben</span>
+            <span class="toc-range">Buchseite 80&ndash;91</span>
+          </div>
         </div>
         <p class="toc-sub">Franziska Kister geb. Kerls schreibt, in blauer Tinte, ihre eigene Lebensgeschichte, bis zu Josefs Betrachtungen &uuml;ber Belastung, Krankheit und die Kraft der Familie.</p>
       </a>
@@ -406,8 +542,10 @@
       <a class="toc-card" href="#kap-mutter-der-frau">
         <div class="toc-card-top">
           <span class="toc-num">5</span>
-          <span class="toc-title">&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</span>
-          <span class="toc-range">Buchseite 92&ndash;94</span>
+          <div class="toc-headtext">
+            <span class="toc-title">&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</span>
+            <span class="toc-range">Buchseite 92&ndash;94</span>
+          </div>
         </div>
         <p class="toc-sub">Josef schreibt &uuml;ber die Krankheit seiner Schwiegermutter im Herbst 1984 sowie &uuml;ber Familienangelegenheiten dieser Zeit.</p>
       </a>
@@ -416,8 +554,10 @@
       <a class="toc-card" href="#kap-eltern-der-frau">
         <div class="toc-card-top">
           <span class="toc-num">6</span>
-          <span class="toc-title">&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</span>
-          <span class="toc-range">Buchseite 95&ndash;98 (Ende)</span>
+          <div class="toc-headtext">
+            <span class="toc-title">&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</span>
+            <span class="toc-range">Buchseite 95&ndash;98 (Ende)</span>
+          </div>
         </div>
         <p class="toc-sub">Tabellarische &bdquo;Erg&auml;nzung zum vorhandenen Testament&ldquo; &ndash; eine Geldrechnung &uuml;ber Zuwendungen an Gisela, Doris und G&uuml;nter, unterschrieben von Josef und Franziska Kister am 6. Oktober 1984. Hiermit endet die Chronik.</p>
       </a>
@@ -1553,6 +1693,205 @@ abzüglich 57.000,00
         targets.forEach(function(t){ observer.observe(t); });
       }
     } catch(e){}
+
+    initTour();
+  }
+
+  // --- "Kurztour": condensed AI-style card tour through the chronicle ---
+  function buildTourCards(){
+    return [
+    {
+      kicker: "1953 · Essen-Bredeney",
+      title: "Eine Chronik entsteht",
+      quote: "„Man macht Bilanz über sein Leben, sein Schaffen, über den Sinn des Lebens.“",
+      text: "Am 8. November 1953, dem zwölften Todestag seines Vaters, beginnt Josef Kister, mit 41 Jahren, seine Lebensgeschichte für seine Nachkommen aufzuschreiben.",
+      img: "images/titelseite.jpg", imgAlt: "Titelseite der Chronik",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "4. März 1912 · Essen, Kruppstr. 203",
+      title: "Geburt im Krupp-Werkshaus",
+      quote: "„Mein Geburtshaus war mein Elternhaus – das schöne, doch einfache Zweifamilienhaus.“",
+      text: "Josef wird als Sohn von Georg und Maria Kister geboren, in einem Haus, das die Firma Krupp für ihre Angestellten errichtet hatte.",
+      img: "images/illu-05-geburtshaus-s13.jpg", imgAlt: "Illustration: Geburtshaus 1912",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1917 · Erster Weltkrieg",
+      title: "Kindheit in Hungerjahren",
+      quote: "„Wir Kinder gingen mit Klotschen zum Kindergarten – vor dem Konsum stand täglich eine endlose Menschenschlange.“",
+      text: "Holzschuhe statt Lederschuhe, stundenlanges Anstehen für Brot und Fett: Josefs früheste Erinnerungen sind von Mangel geprägt.",
+      img: "images/illu-04-hungerjahre-s14.jpg", imgAlt: "Illustration: Hungerjahre",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1923 · Ruhrbesetzung",
+      title: "Flucht, Inflation, ein Kind allein",
+      quote: "„Meine Eltern schickten mir etwa 100.000 Reichsmark, um 1 Pfund Butter zu erhandeln.“",
+      text: "Französische Truppen besetzen das Ruhrgebiet. Der 11-jährige Josef wird nach Schleswig-Holstein evakuiert und erlebt die galoppierende Nachkriegsinflation hautnah.",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1933 · Essen",
+      title: "Vom Lehrling zum Bauingenieur",
+      quote: "„Von den 120 Studierenden, die mit uns das erste Semester begonnen hatten, haben nur 22 das Ziel erreicht.“",
+      text: "Mitten in der Weltwirtschaftskrise besteht Josef sein Bauingenieurexamen – und sucht monatelang vergeblich eine Anstellung.",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1937 · Bratmeyer Krone",
+      title: "Eine Begegnung fürs Leben",
+      quote: "„Ein liebes, nettes, schlankes, zartes und etwas schüchternes Mädchen, das sich vornahm, meinen Zunamen zu tragen.“",
+      text: "Bei einer Feier des Werkchors lernt Josef Franziska kennen. Sylvester 1938 verloben sie sich, am 2. März 1940 folgt die kirchliche Trauung.",
+      img: "images/illu-02-bratmeyer-krone-1937.jpg", imgAlt: "Illustration: Kennenlernen 1937",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "Januar 1943 · Essen",
+      title: "Krieg vor der eigenen Tür",
+      quote: "„Eine Luftmine war in der Nähe unserer Wohnung gefallen – selbst meine Frau mußte sich im Luftschutzkeller über den Kinderwagen schützend beugen.“",
+      text: "Mit der kleinen Gisela im Kinderwagen erlebt die junge Familie die Bombennächte über Essen – kurz darauf zieht Franziska mit dem Kind ins Sauerland.",
+      img: "images/illu-01-terror-1943.jpg", imgAlt: "Illustration: Kriegsterror 1943",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "11. März 1945 · Essen",
+      title: "Flucht per Fahrrad",
+      quote: "„Habe ich mit meinen letzten Habseligkeiten die Stadt im Morgengrauen per Fahrrad verlassen und bin zum Sauerland gefahren.“",
+      text: "Als die Amerikaner Essen beschießen, flieht Josef im letzten Moment aus der Stadt – bis der Krieg wenige Wochen später für ihn endet.",
+      img: "images/illu-03-flucht-maerz-1945.jpg", imgAlt: "Illustration: Flucht 1945",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1941 · Remscheid",
+      title: "Ein doppelter Verlust",
+      quote: "„Leider hat uns der liebe Gott unseren kräftigen, gesunden Jungen wieder genommen.“",
+      text: "Der erstgeborene Sohn Jörg-Günter stirbt 1941 im Alter von wenigen Monaten. Im selben Jahr verliert Josef auch seinen Vater.",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1951 · Essen-Bredeney",
+      title: "Ein Haus, ihr Name",
+      quote: "„Um meiner lieben Frau die richtige Würdigung zu geben, haben wir das Haus auf den Namen Franziska getauft.“",
+      text: "Nach den Kriegsjahren baut Josef 1951 nach eigenen Plänen ein Eigenheim in Bredeney – und tauft es auf Franziskas Namen.",
+      link: "#kap-leben-wirken", linkLabel: "Kapitel 1 lesen"
+    },
+    {
+      kicker: "1978 · Josefs Laudatio",
+      title: "„Die Heilige Elisabeth“",
+      quote: "„Sie trug den Doktorhut der höchsten Disziplin der Menschlichkeit: der Liebe zu ihrem Mann, den Kindern und Enkelkindern.“",
+      text: "In einer bewegenden Laudatio würdigt Josef Franziska – wie sie ihn durch Nervenzusammenbruch, Leberzirrhose und Operationen pflegte und einmal buchstäblich sein Leben rettete.",
+      img: "images/franziska-kister.jpg", imgAlt: "Portrait Franziska Kister",
+      link: "#kap-franziska-erzaehlt", linkLabel: "Kapitel 4 lesen"
+    },
+    {
+      kicker: "1981 · Ein neuer Enkel",
+      title: "Und dann kam Markus",
+      quote: "„Er ist verheiratet, und seine Frau ist Realschullehrerin, sie haben einen kleinen Sohn von 10 Monaten.“",
+      text: "Franziska schreibt 1981 über ihre Enkelkinder – darunter, kaum erwähnt, ein zehn Monate alter Junge namens Markus. Genau der, der diese Chronik heute digitalisiert hat.",
+      link: "#kap-franziska-erzaehlt", linkLabel: "Kapitel 4 lesen"
+    },
+    {
+      kicker: "6. Oktober 1984 · Ende der Chronik",
+      title: "Das letzte Kapitel",
+      quote: "„Ende der Testamentsergänzung!“",
+      text: "Mit einer minutiösen Geldrechnung für ihre Kinder Doris, Günter und Gisela endet die 101-seitige Chronik – unterschrieben von Josef und Franziska Kister.",
+      link: "#kap-eltern-der-frau", linkLabel: "Kapitel 6 lesen"
+    }
+    ];
+  }
+
+  function initTour(){
+    var overlay = document.getElementById("tour-overlay");
+    if (!overlay) return;
+    var TOUR_CARDS = buildTourCards();
+    var idx = 0;
+    var progressEl = document.getElementById("tour-progress");
+    var mediaSlot = document.getElementById("tour-media-slot");
+    var kickerEl = document.getElementById("tour-kicker");
+    var titleEl = document.getElementById("tour-title");
+    var quoteEl = document.getElementById("tour-quote");
+    var textEl = document.getElementById("tour-text");
+    var linkEl = document.getElementById("tour-link");
+    var linkLabelEl = document.getElementById("tour-link-label");
+    var counterEl = document.getElementById("tour-counter");
+    var prevBtn = document.getElementById("tour-prev-btn");
+    var nextBtn = document.getElementById("tour-next-btn");
+
+    TOUR_CARDS.forEach(function(){
+      var dot = document.createElement("i");
+      progressEl.appendChild(dot);
+    });
+
+    function render(){
+      var card = TOUR_CARDS[idx];
+      var dots = progressEl.children;
+      for (var i = 0; i < dots.length; i++){
+        dots[i].className = i < idx ? "done" : (i === idx ? "current" : "");
+      }
+      if (card.img){
+        mediaSlot.innerHTML = '<div class="tour-media"><img src="' + card.img + '" alt="' + card.imgAlt + '"></div>';
+      } else {
+        mediaSlot.innerHTML = '<div class="tour-media tour-media-empty"><span>Kister</span></div>';
+      }
+      kickerEl.textContent = card.kicker;
+      titleEl.textContent = card.title;
+      quoteEl.textContent = card.quote;
+      textEl.textContent = card.text;
+      linkEl.href = card.link;
+      linkLabelEl.textContent = card.linkLabel;
+      counterEl.textContent = (idx + 1) + " / " + TOUR_CARDS.length;
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === TOUR_CARDS.length - 1;
+      overlay.querySelector(".tour-body").scrollTop = 0;
+    }
+
+    function open(){
+      idx = 0;
+      render();
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function close(){
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    function next(){ if (idx < TOUR_CARDS.length - 1){ idx++; render(); } }
+    function prev(){ if (idx > 0){ idx--; render(); } }
+
+    var navBtn = document.getElementById("tour-open-btn-nav");
+    var coverBtn = document.getElementById("tour-open-btn-cover");
+    if (navBtn) navBtn.addEventListener("click", open);
+    if (coverBtn) coverBtn.addEventListener("click", function(ev){ ev.preventDefault(); open(); });
+
+    document.getElementById("tour-close-btn").addEventListener("click", close);
+    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", prev);
+    linkEl.addEventListener("click", close);
+
+    overlay.addEventListener("click", function(ev){
+      if (ev.target === overlay) close();
+    });
+    document.addEventListener("keydown", function(ev){
+      if (!overlay.classList.contains("open")) return;
+      if (ev.key === "Escape") close();
+      else if (ev.key === "ArrowRight") next();
+      else if (ev.key === "ArrowLeft") prev();
+    });
+
+    var touchStartX = null;
+    var modalEl = overlay.querySelector(".tour-modal");
+    modalEl.addEventListener("touchstart", function(ev){
+      touchStartX = ev.touches[0].clientX;
+    }, { passive: true });
+    modalEl.addEventListener("touchend", function(ev){
+      if (touchStartX === null) return;
+      var dx = ev.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50){
+        if (dx < 0) next(); else prev();
+      }
+      touchStartX = null;
+    }, { passive: true });
   }
 })();
 </script>
