@@ -6,159 +6,244 @@
 <title>Chronik der Familie Josef-Heinz Kister</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#f4ecd9;
-    --paper-dark:#ece0c6;
-    --ink:#3a2b18;
-    --ink-soft:#5a4530;
-    --accent:#7a3313;
-    --gold:#a9772f;
-    --line:#c9b688;
-    --maxw:820px;
+    --paper:#f6efe0;
+    --paper-dark:#eee2c9;
+    --card:#fffdf8;
+    --ink:#362a1c;
+    --ink-soft:#6b5a44;
+    --accent:#8a3b16;
+    --accent-dark:#5f2810;
+    --gold:#b6842f;
+    --line:#dcc9a0;
+    --maxw:800px;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(90,60,20,0.10);
+    --shadow-lg:0 18px 46px rgba(90,60,20,0.18);
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  [id]{scroll-margin-top:96px;}
   body{
     margin:0;
     background:var(--paper);
     background-image:
-      radial-gradient(ellipse at top left, rgba(169,119,47,0.07), transparent 60%),
-      radial-gradient(ellipse at bottom right, rgba(122,51,19,0.06), transparent 60%);
+      radial-gradient(ellipse at top left, rgba(182,132,47,0.10), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(138,59,22,0.08), transparent 55%);
     color:var(--ink);
     font-family:'Lora', Georgia, serif;
     font-size:20px;
     line-height:1.75;
+    -webkit-font-smoothing:antialiased;
   }
   a{color:var(--accent);}
   h1,h2,h3,h4{font-family:'Lora', Georgia, serif; color:var(--accent); font-weight:700;}
   .frak{font-family:'Dancing Script', cursive; font-weight:700;}
+  .ui{font-family:'Inter', system-ui, sans-serif;}
 
+  /* --- progress bar --- */
+  #progress-bar{
+    position:fixed; top:0; left:0; height:4px; width:0%;
+    background:linear-gradient(90deg, var(--gold), var(--accent));
+    z-index:80; transition:width 0.1s linear;
+  }
+
+  /* --- top nav --- */
   header.topbar{
-    position:sticky; top:0; z-index:50;
-    background:rgba(244,236,217,0.94);
-    backdrop-filter:blur(3px);
-    border-bottom:2px solid var(--line);
-    padding:10px 18px;
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    position:sticky; top:0; z-index:60;
+    background:rgba(246,239,224,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:12px 22px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
     flex-wrap:wrap;
   }
-  header.topbar .brand{font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:16px;}
-  nav.chapters{display:flex; gap:14px; flex-wrap:wrap; font-size:14px;}
-  nav.chapters a{color:var(--ink-soft); text-decoration:none; border-bottom:1px dotted transparent; padding:2px 0;}
-  nav.chapters a:hover{color:var(--accent); border-bottom-color:var(--accent);}
+  header.topbar .brand{font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:17px; white-space:nowrap;}
+  nav.chapters{display:flex; gap:6px; flex-wrap:wrap; align-items:center; font-family:'Inter',sans-serif; font-size:14px;}
+  nav.chapters a{
+    color:var(--ink-soft); text-decoration:none; padding:8px 13px; border-radius:999px;
+    transition:background 0.15s, color 0.15s; font-weight:500;
+  }
+  nav.chapters a:hover{background:rgba(138,59,22,0.08); color:var(--accent);}
+  nav.chapters a.active{background:var(--accent); color:var(--paper);}
+  nav.chapters a.nav-cta{background:var(--accent); color:var(--paper); font-weight:700;}
+  nav.chapters a.nav-cta:hover{background:var(--accent-dark);}
+
+  /* --- floating "zum Inhaltsverzeichnis" button --- */
+  #toc-fab{
+    position:fixed; right:22px; bottom:26px; z-index:70;
+    display:flex; align-items:center; gap:9px;
+    background:var(--accent); color:var(--paper); text-decoration:none;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px;
+    padding:14px 20px; border-radius:999px;
+    box-shadow:var(--shadow-lg);
+    transition:transform 0.15s, background 0.15s;
+  }
+  #toc-fab:hover{background:var(--accent-dark); transform:translateY(-2px);}
+  #toc-fab svg{width:20px; height:20px; flex:none;}
+  @media (max-width:560px){
+    #toc-fab span{display:none;}
+    #toc-fab{padding:14px; right:16px; bottom:18px;}
+  }
 
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
 
+  /* --- cover / hero --- */
   .cover{
     text-align:center;
-    padding:70px 20px 50px;
-    border-bottom:3px double var(--line);
+    padding:80px 20px 60px;
     margin-bottom:10px;
   }
-  .cover img.titel{max-width:340px; width:80%; box-shadow:0 6px 24px rgba(58,43,24,0.25); border:1px solid var(--line);}
-  .cover .subtitle{margin-top:22px; font-size:16px; color:var(--ink-soft); font-style:italic;}
-  .cover .subtitle2{margin-top:6px; font-size:14px; color:var(--ink-soft);}
+  .cover img.titel{max-width:320px; width:78%; box-shadow:var(--shadow-lg); border-radius:4px; border:1px solid var(--line);}
+  .cover .subtitle{margin-top:26px; font-size:17px; color:var(--ink-soft); font-style:italic;}
+  .cover .subtitle2{margin-top:4px; font-size:14px; color:var(--ink-soft);}
+  .cover .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:34px; padding:16px 34px;
+    background:var(--accent); color:var(--paper); text-decoration:none;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:17px;
+    border-radius:999px; box-shadow:var(--shadow-lg);
+    transition:transform 0.15s, background 0.15s;
+  }
+  .cover .cta:hover{background:var(--accent-dark); transform:translateY(-2px);}
+  .cover .cta svg{width:20px; height:20px;}
 
   section{
     max-width:var(--maxw);
-    margin:0 auto 34px;
-    padding:26px 30px;
-    background:var(--paper-dark);
+    margin:0 auto 30px;
+    padding:32px 34px;
+    background:var(--card);
     border:1px solid var(--line);
-    border-radius:2px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
     position:relative;
   }
-  section::before{
-    content:"";
-    position:absolute; inset:6px;
-    border:1px solid rgba(169,119,47,0.35);
-    pointer-events:none;
-  }
   section h2{
-    font-size:26px; margin-top:0; text-align:center;
-    border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:20px;
+    font-size:27px; margin-top:0; text-align:center;
+    padding-bottom:16px; margin-bottom:22px;
   }
+  section h2::after{
+    content:""; display:block; width:56px; height:3px; margin:14px auto 0;
+    background:var(--gold); border-radius:2px;
+  }
+
+  /* --- chronik pages --- */
+  .chronik-block{max-width:var(--maxw); margin:24px auto 50px;}
   section.chronik-seite{
-    background:var(--paper);
-    padding:20px 30px;
-    margin-bottom:0;
-    border:none;
-    border-bottom:1px dashed var(--line);
-    border-radius:0;
+    background:var(--card);
+    padding:30px 34px 26px;
+    margin-bottom:18px;
+    border:1px solid var(--line);
+    border-left:4px solid var(--gold);
+    border-radius:12px;
+    box-shadow:var(--shadow);
   }
-  section.chronik-seite::before{display:none;}
-  section.chronik-seite h3{
-    font-size:15px; font-family:'Lora',serif; font-weight:600; font-style:italic;
-    color:var(--gold); margin:0 0 10px; text-align:right;
+  .page-badge{
+    display:inline-flex; align-items:baseline; gap:6px;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:13px;
+    color:var(--accent); background:rgba(182,132,47,0.14);
+    padding:5px 13px; border-radius:999px; margin-bottom:16px;
   }
+  .page-badge-total{font-weight:500; color:var(--ink-soft); font-size:12px;}
   section.chronik-seite p{margin:0 0 14px;}
   section.chronik-seite ul{margin:0 0 14px 0; padding-left:22px;}
   section.chronik-seite li{margin-bottom:6px;}
+  section.chronik-seite table{width:100%; border-collapse:collapse; margin:12px 0; font-size:0.85em;}
+  section.chronik-seite table td, section.chronik-seite table th{padding:6px 10px; border-bottom:1px solid var(--line); text-align:left;}
   section.chronik-seite strong{color:var(--accent); font-family:'Lora',serif; font-weight:700; font-size:1em;}
   section.chronik-seite em{color:var(--ink-soft);}
-  .chronik-wrapper h2{max-width:var(--maxw); margin:50px auto 0; text-align:center;}
-  .chronik-wrapper .intro{max-width:var(--maxw); margin:0 auto 20px; text-align:center; font-style:italic; color:var(--ink-soft); font-size:15px;}
-  .chronik-block{background:var(--paper-dark); border:1px solid var(--line); max-width:var(--maxw); margin:20px auto 50px; padding:6px 0 6px;}
+
+  /* --- chapter openers --- */
+  .chapter-opener{
+    max-width:var(--maxw); margin:64px auto 34px; text-align:center;
+    padding:38px 30px; background:linear-gradient(180deg, rgba(182,132,47,0.14), rgba(182,132,47,0.03));
+    border:1px solid var(--line); border-radius:var(--radius);
+  }
+  .chapter-eyebrow{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.14em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:10px;
+  }
+  .chapter-opener h2{margin:0 0 14px;}
+  .chapter-opener h2::after{display:none;}
+  .chapter-sub{max-width:560px; margin:0 auto; font-style:italic; color:var(--ink-soft); font-size:16px;}
+  .chronik-wrapper{max-width:var(--maxw); margin:0 auto;}
+  .chronik-wrapper .chapter-opener{margin-top:10px;}
 
   table.gen{width:100%; border-collapse:collapse; margin:14px 0; font-size:16px;}
-  table.gen td, table.gen th{padding:6px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
-  table.gen th{text-align:left; color:var(--accent); font-family:'Lora',serif; font-weight:700; font-size:15px;}
+  table.gen td, table.gen th{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table.gen th{text-align:left; color:var(--accent); font-family:'Inter',sans-serif; font-weight:600; font-size:14px; width:150px;}
 
   .tree{margin:10px 0 24px;}
-  .tree .person{margin:4px 0; padding:8px 12px; background:rgba(169,119,47,0.08); border-left:3px solid var(--gold);}
-  .tree .person.root{background:rgba(122,51,19,0.10); border-left-color:var(--accent); font-size:18px;}
+  .tree .person{margin:5px 0; padding:10px 14px; background:rgba(182,132,47,0.08); border-radius:8px; border-left:3px solid var(--gold);}
+  .tree .person.root{background:rgba(138,59,22,0.08); border-left-color:var(--accent); font-size:18px;}
   .tree .gen1{margin-left:22px;}
   .tree .gen2{margin-left:44px; font-size:0.95em;}
   .tree .gen3{margin-left:66px; font-size:0.9em; color:var(--ink-soft);}
-  .tree .lbl{font-weight:600; color:var(--accent);}
+  .tree .lbl{font-weight:600; color:var(--accent); font-family:'Inter',sans-serif; font-size:0.85em;}
 
   .crest-figure{text-align:center; margin:10px 0 24px;}
-  .crest-figure img{max-width:280px; width:70%; border:1px solid var(--line);}
+  .crest-figure img{max-width:280px; width:70%; border-radius:8px; border:1px solid var(--line);}
 
   .portraits{
     display:flex; gap:30px; justify-content:center; flex-wrap:wrap;
     max-width:var(--maxw); margin:20px auto 60px; text-align:center;
   }
   .portraits figure{margin:0; width:280px;}
-  .portraits img{width:100%; border-radius:4px; box-shadow:0 8px 26px rgba(58,43,24,0.3); border:1px solid var(--line);}
-  .portraits figcaption{margin-top:12px; font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:17px;}
+  .portraits img{width:100%; border-radius:12px; box-shadow:var(--shadow-lg); border:1px solid var(--line);}
+  .portraits figcaption{margin-top:14px; font-family:'Lora',serif; font-weight:700; color:var(--accent); font-size:17px;}
   .portraits figcaption small{display:block; color:var(--ink-soft); font-family:'Lora',serif; font-size:15px; font-style:italic; margin-top:4px;}
 
   .illu-grid{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:34px;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:30px;
     max-width:var(--maxw); margin:20px auto 40px;
   }
   .illu-grid figure{margin:0;}
-  .illu-grid img{width:100%; border-radius:4px; box-shadow:0 8px 26px rgba(58,43,24,0.25); border:1px solid var(--line);}
-  .illu-grid figcaption{margin-top:10px; font-family:'Lora',serif; font-style:italic; color:var(--ink-soft); font-size:15px; text-align:center;}
+  .illu-grid img{width:100%; border-radius:12px; box-shadow:var(--shadow); border:1px solid var(--line); transition:transform 0.2s, box-shadow 0.2s;}
+  .illu-grid img:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg);}
+  .illu-grid figcaption{margin-top:12px; font-family:'Lora',serif; font-style:italic; color:var(--ink-soft); font-size:15px; text-align:center;}
 
   footer{
-    text-align:center; padding:40px 20px 70px; color:var(--ink-soft); font-size:14px;
+    text-align:center; padding:50px 20px 90px; color:var(--ink-soft); font-size:14px;
   }
-  .note{font-size:0.88em; color:var(--ink-soft); font-style:italic;}
-  .divider{text-align:center; color:var(--gold); font-size:20px; margin:8px 0 26px; letter-spacing:8px;}
+  .note{font-size:0.85em; color:var(--ink-soft); font-style:italic;}
+  .divider{text-align:center; color:var(--gold); font-size:20px; margin:8px 0 0; letter-spacing:8px;}
 
-  .toc{}
+  /* --- table of contents --- */
+  .toc{max-width:calc(var(--maxw) + 120px) !important;}
   .toc h2{margin-top:0;}
-  .toc ol{counter-reset:tocnum; list-style:none; margin:0; padding:0;}
-  .toc li{counter-increment:tocnum; margin:0; border-bottom:1px dashed var(--line);}
-  .toc li:last-child{border-bottom:none;}
-  .toc a{
-    display:flex; align-items:baseline; gap:10px;
-    padding:10px 2px; text-decoration:none; color:var(--ink);
+  .toc-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;
   }
-  .toc a::before{
-    content:counter(tocnum) ".";
-    color:var(--gold); font-family:'Lora',serif; font-weight:700; min-width:22px;
+  .toc-grid > li{list-style:none;}
+  .toc-grid > li.toc-wide{grid-column:1 / -1;}
+  .toc-card{
+    display:flex; flex-direction:column; gap:8px; height:100%;
+    padding:20px 22px; text-decoration:none; color:var(--ink);
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    transition:transform 0.15s, box-shadow 0.15s, border-color 0.15s;
   }
-  .toc a .toc-title{font-weight:700; color:var(--accent); font-family:'Lora',serif; font-size:16px;}
-  .toc a .toc-range{margin-left:auto; color:var(--ink-soft); font-size:14px; font-style:italic; white-space:nowrap;}
-  .toc a:hover .toc-title{text-decoration:underline;}
-  .toc .toc-sub{padding-left:32px; font-size:14px; color:var(--ink-soft); margin:-4px 0 8px;}
+  .toc-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--gold);}
+  .toc-card-top{display:flex; align-items:center; gap:12px;}
+  .toc-num{
+    flex:none; width:34px; height:34px; border-radius:50%;
+    background:var(--accent); color:var(--paper); font-family:'Inter',sans-serif; font-weight:700; font-size:14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .toc-title{font-weight:700; color:var(--accent); font-family:'Lora',serif; font-size:17px; line-height:1.3;}
+  .toc-range{
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--ink-soft);
+    background:rgba(182,132,47,0.14); padding:3px 10px; border-radius:999px; white-space:nowrap; align-self:flex-start;
+  }
+  .toc-sub{font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin:0;}
   .toc-status{
-    display:inline-block; margin-top:16px; padding:8px 14px; font-size:13px;
-    background:rgba(169,119,47,0.12); border:1px solid var(--line); border-radius:3px; color:var(--ink-soft);
+    display:inline-block; margin-top:22px; padding:10px 16px; font-size:13px;
+    font-family:'Inter',sans-serif; font-weight:500;
+    background:rgba(182,132,47,0.14); border:1px solid var(--line); border-radius:999px; color:var(--ink-soft);
+  }
+  @media (max-width:640px){
+    .toc-grid{grid-template-columns:1fr;}
   }
 
   body.locked #site-content{display:none;}
@@ -168,32 +253,34 @@
     align-items:center; justify-content:center;
     background:var(--paper);
     background-image:
-      radial-gradient(ellipse at top left, rgba(169,119,47,0.07), transparent 60%),
-      radial-gradient(ellipse at bottom right, rgba(122,51,19,0.06), transparent 60%);
+      radial-gradient(ellipse at top left, rgba(182,132,47,0.10), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(138,59,22,0.08), transparent 55%);
     padding:20px;
   }
   .lock-box{
-    max-width:380px; width:100%; text-align:center;
-    background:var(--paper-dark); border:1px solid var(--line);
-    padding:40px 30px; border-radius:4px;
+    max-width:400px; width:100%; text-align:center;
+    background:var(--card); border:1px solid var(--line);
+    padding:44px 34px; border-radius:var(--radius); box-shadow:var(--shadow-lg);
   }
   .lock-box .frak{font-size:38px; display:block; margin-bottom:8px; line-height:1.3;}
-  .lock-box p{color:var(--ink-soft); font-size:16px; margin:0 0 22px;}
+  .lock-box p{color:var(--ink-soft); font-size:16px; margin:0 0 24px;}
   .lock-box input[type=password]{
-    width:100%; padding:11px 12px; font-size:17px; font-family:'Lora',serif;
-    border:1px solid var(--line); border-radius:3px; background:var(--paper);
+    width:100%; padding:13px 14px; font-size:17px; font-family:'Inter',sans-serif;
+    border:1px solid var(--line); border-radius:10px; background:var(--paper);
     color:var(--ink); margin-bottom:14px;
   }
   .lock-box button{
-    width:100%; padding:12px 12px; font-size:16px; font-family:'Lora',serif; font-weight:700;
+    width:100%; padding:14px 12px; font-size:16px; font-family:'Inter',sans-serif; font-weight:700;
     background:var(--accent); color:var(--paper); border:none;
-    border-radius:3px; cursor:pointer;
+    border-radius:10px; cursor:pointer; transition:background 0.15s;
   }
-  .lock-box button:hover{background:#5f2810;}
+  .lock-box button:hover{background:var(--accent-dark);}
   .lock-box .lock-error{color:#a02418; font-size:14px; margin-top:12px; display:none;}
 </style>
 </head>
 <body class="locked">
+
+<div id="progress-bar"></div>
 
 <div id="lock-overlay">
   <div class="lock-box">
@@ -212,60 +299,108 @@
 <header class="topbar">
   <div class="brand">Chronik &middot; Familie Kister</div>
   <nav class="chapters">
-    <a href="#inhalt">Inhalt</a>
+    <a href="#inhalt" class="nav-cta">Inhalt</a>
     <a href="#wappen">Wappen</a>
     <a href="#josef">Ahnen Josef</a>
     <a href="#franziska">Ahnen Franziska</a>
-    <a href="#kinder">Unsere Kinder</a>
+    <a href="#kinder">Kinder</a>
     <a href="#chronik">Chronik</a>
     <a href="#illustrationen">Illustrationen</a>
     <a href="#bilder">Bilder</a>
   </nav>
 </header>
 
+<a id="toc-fab" href="#inhalt" aria-label="Zum Inhaltsverzeichnis">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+  <span>Inhaltsverzeichnis</span>
+</a>
+
 <div class="cover">
   <img class="titel" src="images/titelseite.jpg" alt="Titelseite: Chronik der Familie Josef-Heinz Kister">
   <div class="subtitle">angelegt 1953 von Josef Kister</div>
   <div class="subtitle2">Digitalisiert und transkribiert 2026</div>
+  <br>
+  <a class="cta" href="#inhalt">
+    <span>Chronik lesen</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+  </a>
 </div>
 
 <section id="inhalt" class="toc">
   <h2>Inhaltsverzeichnis</h2>
-  <ol>
-    <li><a href="#wappen"><span class="toc-title">Hausmarke &ndash; Familienwappen</span></a></li>
-    <li><a href="#stamm-josef"><span class="toc-title">Stamm-Tafel Josef-Heinz Kister</span></a></li>
-    <li><a href="#josef"><span class="toc-title">Ahnentafel Josef-Heinz Kister</span></a></li>
-    <li><a href="#stamm-franziska"><span class="toc-title">Stamm-Tafel Franziska-Josephine Kerls</span></a></li>
-    <li><a href="#franziska"><span class="toc-title">Ahnentafel Franziska-Josephine Kerls</span></a></li>
-    <li><a href="#kinder"><span class="toc-title">Unsere Kinder</span></a></li>
-    <li>
-      <a href="#kap-leben-wirken"><span class="toc-title">&bdquo;Mein Leben und Wirken&ldquo;</span><span class="toc-range">Buchseite 12&ndash;68</span></a>
-      <div class="toc-sub">Josef Kisters eigene Lebenserz&auml;hlung: Kindheit in Essen, Inflation, Ruhrbesetzung, Lehr- und Studienzeit, Krieg, Wiederaufbau, Familie, Krankheit, chronologische Jahresr&uuml;ckblicke bis 1983.</div>
+  <ul class="toc-grid">
+    <li><a class="toc-card" href="#wappen"><div class="toc-card-top"><span class="toc-title">Hausmarke &ndash; Familienwappen</span></div></a></li>
+    <li><a class="toc-card" href="#stamm-josef"><div class="toc-card-top"><span class="toc-title">Stamm-Tafel Josef-Heinz Kister</span></div></a></li>
+    <li><a class="toc-card" href="#josef"><div class="toc-card-top"><span class="toc-title">Ahnentafel Josef-Heinz Kister</span></div></a></li>
+    <li><a class="toc-card" href="#stamm-franziska"><div class="toc-card-top"><span class="toc-title">Stamm-Tafel Franziska-Josephine Kerls</span></div></a></li>
+    <li><a class="toc-card" href="#franziska"><div class="toc-card-top"><span class="toc-title">Ahnentafel Franziska-Josephine Kerls</span></div></a></li>
+    <li><a class="toc-card" href="#kinder"><div class="toc-card-top"><span class="toc-title">Unsere Kinder</span></div></a></li>
+
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-leben-wirken">
+        <div class="toc-card-top">
+          <span class="toc-num">1</span>
+          <span class="toc-title">&bdquo;Mein Leben und Wirken&ldquo;</span>
+          <span class="toc-range">Buchseite 12&ndash;68</span>
+        </div>
+        <p class="toc-sub">Josef Kisters eigene Lebenserz&auml;hlung: Kindheit in Essen, Inflation, Ruhrbesetzung, Lehr- und Studienzeit, Krieg, Wiederaufbau, Familie, Krankheit, chronologische Jahresr&uuml;ckblicke bis 1983.</p>
+      </a>
     </li>
-    <li>
-      <a href="#kap-eltern"><span class="toc-title">&bdquo;Aus dem Leben meiner Eltern&ldquo;</span><span class="toc-range">Buchseite 69&ndash;78</span></a>
-      <div class="toc-sub">Buchseiten 69&ndash;74: Josefs Vater Johann-Georg Kister (1874&ndash;1941) &uuml;ber seinen Vater Georg-Johann Kister (1838&ndash;1919) und sich selbst. Buchseiten 75&ndash;78 (unterschrieben, 1948): Josefs Mutter Johanna Marie Kister geb. Spiegel &uuml;ber ihre eigenen Eltern und ihr Leben.</div>
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-eltern">
+        <div class="toc-card-top">
+          <span class="toc-num">2</span>
+          <span class="toc-title">&bdquo;Aus dem Leben meiner Eltern&ldquo;</span>
+          <span class="toc-range">Buchseite 69&ndash;78</span>
+        </div>
+        <p class="toc-sub">Buchseiten 69&ndash;74: Josefs Vater Johann-Georg Kister (1874&ndash;1941) &uuml;ber seinen Vater Georg-Johann Kister (1838&ndash;1919) und sich selbst. Buchseiten 75&ndash;78 (unterschrieben, 1948): Josefs Mutter Johanna Marie Kister geb. Spiegel &uuml;ber ihre eigenen Eltern und ihr Leben.</p>
+      </a>
     </li>
-    <li>
-      <a href="#kap-laudatio"><span class="toc-title">&bdquo;Laudatio&ldquo; &ndash; Josef &uuml;ber seine Eltern</span><span class="toc-range">Buchseite 79</span></a>
-      <div class="toc-sub">Sp&auml;terer Nachtrag von Josef Kister, datiert 10.1.1981.</div>
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-laudatio">
+        <div class="toc-card-top">
+          <span class="toc-num">3</span>
+          <span class="toc-title">&bdquo;Laudatio&ldquo; &ndash; Josef &uuml;ber seine Eltern</span>
+          <span class="toc-range">Buchseite 79</span>
+        </div>
+        <p class="toc-sub">Sp&auml;terer Nachtrag von Josef Kister, datiert 10.1.1981.</p>
+      </a>
     </li>
-    <li>
-      <a href="#kap-franziska-erzaehlt"><span class="toc-title">Franziska Kister erz&auml;hlt ihr eigenes Leben</span><span class="toc-range">Buchseite 80&ndash;91</span></a>
-      <div class="toc-sub">Franziska Kister geb. Kerls schreibt, in blauer Tinte, ihre eigene Lebensgeschichte, bis zu Josefs Betrachtungen &uuml;ber Belastung, Krankheit und die Kraft der Familie.</div>
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-franziska-erzaehlt">
+        <div class="toc-card-top">
+          <span class="toc-num">4</span>
+          <span class="toc-title">Franziska Kister erz&auml;hlt ihr eigenes Leben</span>
+          <span class="toc-range">Buchseite 80&ndash;91</span>
+        </div>
+        <p class="toc-sub">Franziska Kister geb. Kerls schreibt, in blauer Tinte, ihre eigene Lebensgeschichte, bis zu Josefs Betrachtungen &uuml;ber Belastung, Krankheit und die Kraft der Familie.</p>
+      </a>
     </li>
-    <li>
-      <a href="#kap-mutter-der-frau"><span class="toc-title">&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</span><span class="toc-range">Buchseite 92&ndash;94</span></a>
-      <div class="toc-sub">Josef schreibt &uuml;ber die Krankheit seiner Schwiegermutter im Herbst 1984 sowie &uuml;ber Familienangelegenheiten dieser Zeit.</div>
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-mutter-der-frau">
+        <div class="toc-card-top">
+          <span class="toc-num">5</span>
+          <span class="toc-title">&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</span>
+          <span class="toc-range">Buchseite 92&ndash;94</span>
+        </div>
+        <p class="toc-sub">Josef schreibt &uuml;ber die Krankheit seiner Schwiegermutter im Herbst 1984 sowie &uuml;ber Familienangelegenheiten dieser Zeit.</p>
+      </a>
     </li>
-    <li>
-      <a href="#kap-eltern-der-frau"><span class="toc-title">&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</span><span class="toc-range">Buchseite 95&ndash;98 (Ende)</span></a>
-      <div class="toc-sub">Tabellarische &bdquo;Erg&auml;nzung zum vorhandenen Testament&ldquo; &ndash; eine Geldrechnung &uuml;ber Zuwendungen an Gisela, Doris und G&uuml;nter, unterschrieben von Josef und Franziska Kister am 6. Oktober 1984. Hiermit endet die Chronik.</div>
+    <li class="toc-wide">
+      <a class="toc-card" href="#kap-eltern-der-frau">
+        <div class="toc-card-top">
+          <span class="toc-num">6</span>
+          <span class="toc-title">&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</span>
+          <span class="toc-range">Buchseite 95&ndash;98 (Ende)</span>
+        </div>
+        <p class="toc-sub">Tabellarische &bdquo;Erg&auml;nzung zum vorhandenen Testament&ldquo; &ndash; eine Geldrechnung &uuml;ber Zuwendungen an Gisela, Doris und G&uuml;nter, unterschrieben von Josef und Franziska Kister am 6. Oktober 1984. Hiermit endet die Chronik.</p>
+      </a>
     </li>
-    <li><a href="#illustrationen"><span class="toc-title">Illustrationen zur Chronik</span></a></li>
-    <li><a href="#bilder"><span class="toc-title">Josef und Franziska Kister &ndash; Portraits</span></a></li>
-  </ol>
-  <div class="toc-status">Transkription abgeschlossen: Buchseite 12 bis 98 (Ende des Dokuments, PDF-Seite 101) &middot; vollst&auml;ndig transkribiert</div>
+
+    <li><a class="toc-card" href="#illustrationen"><div class="toc-card-top"><span class="toc-title">Illustrationen zur Chronik</span></div></a></li>
+    <li><a class="toc-card" href="#bilder"><div class="toc-card-top"><span class="toc-title">Josef und Franziska Kister &ndash; Portraits</span></div></a></li>
+  </ul>
+  <div class="toc-status">&#10003; Transkription abgeschlossen: Buchseite 12 bis 98 (Ende des Dokuments, PDF-Seite 101)</div>
 </section>
 
 <section id="wappen">
@@ -351,153 +486,156 @@
 
 
 <div class="chronik-wrapper" id="chronik">
-  <h2 id="kap-leben-wirken">&bdquo;Mein Leben und Wirken&ldquo;</h2>
-  <p class="intro">Die handschriftliche Familienchronik, begonnen am 8. November 1953 von Josef Kister, fortgef&uuml;hrt bis in die 1980er Jahre &ndash; hier vollst&auml;ndig transkribiert von Buchseite 12 bis 98, dem Ende des Dokuments (Buchseiten 51&ndash;52 fehlen in der Originalz&auml;hlung, vermutlich f&uuml;r Fotos reserviert). Ab Buchseite 69 kommen weitere Stimmen der Familie hinzu: Josefs Vater, seine Mutter und schlie&szlig;lich seine Frau Franziska erz&auml;hlen in eigenen Worten, bis hin zur testamentarischen Schlussabrechnung von 1984. Unsichere Lesungen der Handschrift sind mit [?] gekennzeichnet.</p>
-  <div class="divider">&#8258; &#8258; &#8258;</div>
+  <div class="chapter-opener" id="kap-leben-wirken">
+    <div class="chapter-eyebrow">Kapitel 1</div>
+    <h2>&bdquo;Mein Leben und Wirken&ldquo;</h2>
+    <p class="chapter-sub">Die handschriftliche Familienchronik, begonnen am 8. November 1953 von Josef Kister, fortgef&uuml;hrt bis in die 1980er Jahre &ndash; hier vollst&auml;ndig transkribiert von Buchseite 12 bis 98, dem Ende des Dokuments (Buchseiten 51&ndash;52 fehlen in der Originalz&auml;hlung, vermutlich f&uuml;r Fotos reserviert). Ab Buchseite 69 kommen weitere Stimmen der Familie hinzu. Unsichere Lesungen der Handschrift sind mit [?] gekennzeichnet.</p>
+    <div class="divider">&#8258; &#8258; &#8258;</div>
+  </div>
 </div>
 <div class="chronik-block">
 <section class="chronik-seite">
-<h3>Buchseite 12</h3>
+<span class="page-badge">Buchseite 12 <span class="page-badge-total">von 98</span></span>
 <p>Heute, am 8. November 1953, ist der zwölfte Todestag meines Vaters. An solchen Tagen hält man Rückblick in die Vergangenheit und wird gleichzeitig veranlaßt [?], seine Gedanken zu Papier zu bringen.</p>
 <p>Ich, der Anleger dieser Chronik, Josef Kister, möchte dem Titel dieses Buches „Mein Leben und Wirken" eine ungezwungene Aufzeichnung folgen lassen.</p>
 <p>Am 4. März 1912 schenkte der liebe Gott mit dem Leben und meinen Eltern, Georg Kister u. Maria, geborene Spiegel, einen gesunden Sohn, meinem Bruder Georg und meiner Schwester Maria einen Bruder. Mein Geburtshaus war mein Elternhaus, es lag in der Großstadt Essen, Kruppstr. 203. Meine Nachkommen werden das Haus, falls sie sich dafür interessieren, kaum noch vorfinden, das schöne, doch einfache Zweifamilienhaus, etwa 1910/11 von der Firma Krupp für Angestellte erbaut, hat durch den Bombenkrieg 39/45 stark gelitten und wird demnächst abgerissen.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 13</h3>
+<span class="page-badge">Buchseite 13 <span class="page-badge-total">von 98</span></span>
 <p>In dieser fünfräumigen Wohnung, in unserem Garten mit großer Rasenfläche und stattlichen Lindenbäumen und in dem uns vorgelagerten Alfredspark, sowie in den zu damaliger Zeit noch kaum befahrenen Straßen, verbrachte ich meine Kinder- und Jugendjahre bis zu meiner Heirat.</p>
 <p>Weit der Zeit vorausgeeilt, muß ich wieder einen Sprung zurück, zu meinem Tauftag machen. Ich wurde am 10.3.12 in der röm. kath. Pfarrkirche St. Mariä Geburt, in dem Glauben meiner Eltern getauft. Meine Taufpaten waren der Pflegevater meiner Mutter, Josef Mummdey aus Bochum, und die älteste Schwester meines Vaters, Therese Förster aus Essen. Die ersten Kindheitserinnerungen erstrecken sich auf den Besuch des Kindergartens im Rickerhaus an der Planckstr. Neben den üblichen Kinderspielen hatten wir auch eine dankenswerte Aufgabe zu erfüllen. Aus alten Stofflappen mußten wir Fäden zupfen, die dann als Watteersatz für die verwundeten Soldaten des Weltkrieges dienten.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 14</h3>
+<span class="page-badge">Buchseite 14 <span class="page-badge-total">von 98</span></span>
 <p>Es waren fürchterliche Hungerjahre. Ich erinnere mich, daß wir Kinder mit Klotschen [Holzschuhe, ?] zum Kindergarten gingen. Vor dem Konsum, der sich an unseren Garten anschloß, stand täglich eine endlose Menschenschlange, die stundenlang darauf wartete, um auf die Kartenabschnitte [?] etwas schlechtes Brot oder etwa 1/10 Pfund Fett zu erhalten. Die Mütter waren damals wahre Kochkünstler, sie mahlten Graupen u. Mais u. buken ohne Fett.</p>
 <p>Ab Ostern 1918 besuchte ich die Volksschule an der Kepplerstr. Unruhen gehörten in diesen Nachkriegsjahren zur Tagesordnung. Unsere Schule wurde zeitweilig von den Spartakisten, dann von der Polizei oder Reichswehr besetzt. Meine Eltern schickten mich im fünften Schuljahr zur Petrischule an der Petristraße, da diese Schule bisher von Unruhen verschont geblieben war. Am „Weißen Sonntag" 1922 empfing ich die erste hl. Kommunion in der St. Mariä Geburt-Kirche. Es war ein glücklicher Tag, denn Geschenke in der Form,</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 15</h3>
+<span class="page-badge">Buchseite 15 <span class="page-badge-total">von 98</span></span>
 <p>wie sie heute überbracht werden, fielen aus, es war eben nicht üblich und außerdem konnte man kaum etwas käuflich erwerben. 1923 besetzten die Franzosen das Ruhrgebiet und damit auch die Stadt Essen, um ihre Reparationsforderungen mit der Waffe durchzusetzen. Verhaftungen, Ausweisungen u. Verfolgung gehörten zum Tagesablauf.</p>
 <p>Da eine innere Sicherheit durch die ausgeschalteten deutschen Behörden nicht gegeben war, wurden wir Kinder in die unbesetzten Gebiete evakuiert. Ich kam nach Schleswig-Holstein, zeitweilig in ein Kinderheim in Albersdorf, u. dann zu einem Kleinbauer in Tönning [?], an der Eidermündung. Hier habe ich die Nordsee erstmalig gesehen, bewundert u. gefürchtet. Erwähnen muß ich die inzwischen angelaufene Inflationszeit. Unsere Reichsmark wurde von Tag zu Tag, später von Stunde zu Stunde wertloser. Die meisten Menschen, die über ein Barvermögen verfügten, wurden bettelarm. Meine Eltern schickten mir z.Zt. etwa 100 000 Reichsmark, um 1 Pfd. Butter zu erhandeln. Als die Geldscheine</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 16</h3>
+<span class="page-badge">Buchseite 16 <span class="page-badge-total">von 98</span></span>
 <p>entwertet waren [?], konnte ich mir noch eine Briefmarke dafür kaufen. Nach einem Aufenthalt von 4 bis 5 Monaten kamen wir Kinder wieder zurück ins Elternhaus. Die Franzosen verließen uns im Jahre 1925, für unsere Generation brach ein neues Zeitalter an. Was wir bisher noch garnicht gesehen hatten, wie Apfelsinen, Bananen, Kokosnüsse oder andere Nüsse und solche Dinge, die wir nur spärlich oder als Ersatz kannten, wie gutes Brot, ausreichend Fett u. Fleisch u. Bekleidung, das war nun reichlich vorhanden. Abschließend zu diesem Zeitabschnitt kann ich sagen, es war, abgesehen von meinen ersten Kleinkindjahren, ein sehr dürftiger [?] Lebensabschnitt. Unsere Eltern haben jedoch alles getan, um uns über diese Zeit zu bringen. Wir Kinder haben diese Not u. Gefahr weniger erkannt, wir schätzten kleine Gaben, eine ländliche Gemeinschaft u. freuten uns in der Natur. Daß ich einem Förster in engster [?] ... und jeden angenehmen Baum oder manches Feld [?] bestiegen habe und auch sonstige Streiche ausgeheckt habe,</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 17</h3>
+<span class="page-badge">Buchseite 17 <span class="page-badge-total">von 98</span></span>
 <p>soll nicht verschwiegen werden. Auf religiöser Ebene habe ich im Knabenchor des Kirchenchors gesungen und war auch zeitweilig Meßdiener.</p>
 <p>Nach meiner Schulentlassung, ich war ein guter Zeichner, kam ich 1926 in die Zeichnerlehre bei dem damals sehr geschätzten Architekten [Vorname unleserlich] Klasse [?]. Sein Atelier befand sich in dem Bürohaus „Glückauf" an der Friedrichstr. Heute kennen wir nur noch die durchgehende Arbeitszeit, die während des zweiten Weltkrieges allgemein eingeführt wurde. In meiner Lehrzeit wurde von 8 bis 12.30 Uhr u. von 14.30 bis 19 Uhr gearbeitet. Als jüngster Lehrjunge mußte ich vor Beginn der Arbeitszeit den Büroschlüssel aus der Wohnung meines Chefs im Dornwäldchen [?] holen und nach Beendigung derselben auch wieder dort abgeben. Diese Wege wurden nicht etwa per Straßenbahn, sondern zu Fuß erledigt. Gegenüber der Vergangenheit, in der ein Lehrling noch Lehrgeld zahlen mußte, war es schon ein Fortschritt, daß mir mein Chef ein Taschengeld von RM 10,–/Monat im ersten Lehrjahr</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 18</h3>
+<span class="page-badge">Buchseite 18 <span class="page-badge-total">von 98</span></span>
 <p>u. RM 20,– bzw. RM 30,– im zweiten bzw. dritten Jahr auszahlte. Dieses fürstliche Gehalt habe ich selbstverständlich meinen Eltern abgegeben und erhielt ein ebenso fürstliches Taschengeld in Höhe von RM 1,– pro Woche im ersten Lehrjahr, RM 2,– bzw. 3,– pro Woche im 2. bzw. 3. Jahr. Mein zweiter Chef hatte keine technische Vorbildung genossen, um so mehr war er ein ausgezeichneter, wenn auch eigenwilliger Künstler. Er vermittelte mir die Grundlage der Gestaltungslehre und der Farbenharmonie. Besonders ersprießlich war die Lehrzeit nicht; wir Lehrlinge waren mehr Mitläufer, da uns keiner die notwendigen technischen Anweisungen geben konnte. Während meiner Lehrzeit schloß ich mich, in Ermangelung einer anderen mit passenden Berufsvereinigung [?], dem K.K.V. (Kath. Kaufmännischer Verein) an, in dessen Reihen auch mein Bruder, der den kaufmännischen Beruf gewählt hatte, stand. Das Programm des K.K.V. war vielseitig ausgerichtet, Berufsvorträge, gesellige Veranstaltungen, Wanderungen u. christliche Übungen waren Kernpunkte. So manche günstige</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 19</h3>
+<span class="page-badge">Buchseite 19 <span class="page-badge-total">von 98</span></span>
 <p>Wanderung in der näheren Umgebung, besonders auch die mehrtägigen Wanderungen, ich denke da an eine 8-tägige Tour quer durch den Harz, sind mir bis heute unvergessen.</p>
 <p>Nach meiner Lehrzeit begann für mich ein neuer Lebensabschnitt. Als Voraussetzung für den Besuch einer Staatsbauschule mußte ich 1½ Jahr auf Baustellen fachlich gearbeitet haben. Im Frühjahr 1929 wurde in Essen, die später so berühmt gewordene „Gruga" (Große Ruhrländische Gartenbau-Ausstellung) eröffnet. Mein Chef, Architekt Klasse, hatte den Auftrag für diese Ausstellung einige Gebäude zu entwerfen u. die Bauleitung zu übernehmen. Für mich war es sehr interessant, erst im Büro zeichnerisch u. dann auf der Baustelle praktisch am Aufbau dieser Bauten mitwirken zu können. Im Laufe meiner praktischen Tätigkeit habe ich im Tiefbau (Straßenbau) u. im Siedlungsbau gearbeitet. Wenn ich eine Baustelle von damals u. heute betrachte, dann sind doch erhebliche Veränderungen festzustellen. Die Leute vom Bau waren damals</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 20</h3>
+<span class="page-badge">Buchseite 20 <span class="page-badge-total">von 98</span></span>
 <p>echte [Handwerker, ?], sie verstanden ihr Fach, besaßen einen Berufsstolz und leisteten körperlich mehr. Im Rohbau kannte man nur den Ziegelstein u. die Holzbalkendecke, gegenüber kennt man heute meist nur den Formstein u. die Stahlbetondecke. Mörtel u. Beton wurden damals nur im Handbetrieb bereitet, u. an Stelle des Aufzugs, den wir heute an jeder Baustelle sehen, trugen die Mörtel- u. Steinträger ihre erheblichen Lasten bis ins oberste Geschoß.</p>
 <p>Einige technische Daten werden meinen Nachkommen die Entwicklung in diesem Zeitraum vor Augen führen. Die Gasbeleuchtung in den Häusern wurde erst 1925 durch elektrische Beleuchtung abgelöst. Das wirklich gebrauchsfähige Personenauto kam 1924/25 in den Handel u. das Radiogerät erst 1926/27. Das Fernsehgerät konnte man im Bundesgebiet 1952 erstmalig bewundern, am 15.10.1954 habe ich mir selbst solch einen Wunderapparat zugelegt, Bildgröße 22×29 cm.</p>
 <p>Im Herbst 1930 begann mein Studium auf der hiesigen Staatsbauschule, die in Fachkreisen sehr geschätzt, bei den Studenten aber wegen der hohen Anforderungen</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 21</h3>
+<span class="page-badge">Buchseite 21 <span class="page-badge-total">von 98</span></span>
 <p>u. der strengen Hausordnung gefürchtet war. In klostermäßiger Abgeschiedenheit von aller Umwelt habe ich 2½ Jahre = 5 Semester gebüffelt, u. konnte Ostern 1933 mein Bauingenieurexamen bestehen. Von den 120 Studierenden, die mit das erste Semester begonnen hatten, haben nur 22 das Ziel erreicht. Unser Ziel war aber nicht nur unser Patent [Examen], sondern eine passende Stelle im Baugewerbe zu finden. Betrübt mußten wir jungen Bauingenieure feststellen, daß keiner auf uns gewartet hatte. In diesem Zeitraum der Regierungskrisen, der laufenden Konkurseröffnungen, der wirtschaftlichen, politischen und kulturellen Skandale, hatte Deutschland 8 Millionen Erwerbslose. Während wir Studenten unsere Examen bauten, kam Hitler – über dessen rühmliche und unrühmliche Geschichte meine Nachkommen sich Nachschlagewerke verschaffen können [?] – nach vielen Machtkämpfen an die Regierungsgewalt. Ein Hoffnungsschimmer stieg am Horizont für alle Arbeitssuchenden auf, der später mehr erfüllte, als dem Einzelnen lieb war. Damit ich</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 22</h3>
+<span class="page-badge">Buchseite 22 <span class="page-badge-total">von 98</span></span>
 <p>nicht in das Heer der Arbeitslosen untertauchte, bot mir mein Bruder Georg, der 1930 eine Papiergroßhandlung gegründet hatte, den Posten eines Reisenden an. Nach anfänglichen Erfolgen merkte ich doch, daß ich wenig Eignung für diese kaufmännische Tätigkeit hatte. Während mein Bruder zu seinen Kunden kam u. siegte [?], war mir der Kundenbesuch eine Last. Ich habe das Angebot meines Bruders, seinen Lieferwagen zu fahren, dankbar angenommen, war doch damit etwas verbunden, was mit Technik zu tun hatte. Auf Grund meiner vielen Bewerbungsschreiben, konnte ich endlich am 2. Januar 1934 meine erste feste Stelle bei dem Architekten Hans Förner [?], Essen-Rüttenscheid, Waldblick 12, antreten. Nach anfänglicher Eingewöhnungszeit [?] war ich in der Folge mit im Außendienst beschäftigt. Förner hatte erkannt, daß ich eine Baustelle organisatorisch gut einrichten u. mit allen Bauhandwerkern, Behörden u. Handwerkern fachlich u. gerecht umgehen konnte. Der arbeitsmäßige Aufschwung, den Deutschland in den Jahren 1934/36 erlebte, gab mir schon früh den Mut, mich in</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 23</h3>
+<span class="page-badge">Buchseite 23 <span class="page-badge-total">von 98</span></span>
 <p>absehbarer Zeit als freischaffender Architekt zu betätigen, zumal ich bei Förner, der sich nur um den Auftragseingang kümmerte, ein selbständiges Arbeiten gewohnt war. Als ich im Juni 1936 bei der Firma Hochtief A.G. eine Stelle als Bauführer antrat, hatte ich die Absicht, den Betrieb eines Baugeschäftes für 1 bis 2 Jahre zu studieren, um mich danach als Architekt zu betätigen. Aus diesem Vorhaben ist leider, oder Gott weiß wofür es besser war, nichts geworden, da kurz nach meiner Einstellung von der Regierung ein Kündigungsverbot aus wehrwirtschaftlichen Gründen erlassen wurde. Bis zum Kriegsausbruch 1939 war ich für Hochtief als Bauführer in Breitscheid [?], Westerwald (1936), im Winter 1938/39 am Westwall in Pirmasens/Saarbrücken, und in der übrigen Zeit im Zentralbüro in Essen, als Kalkulator und Statiker beschäftigt. In diesen Vorkriegsjahren wurde viel gearbeitet, aber auch gutes Geld verdient u. die fröhlichen Stunden in der Familie u. in Freundeskreisen waren nicht selten. In meiner Freizeit habe ich mich politisch nicht binden lassen, es war</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 24</h3>
+<span class="page-badge">Buchseite 24 <span class="page-badge-total">von 98</span></span>
 <p>nicht immer leicht, aber entsprach der demokratischen Denkungsart unserer Familie. Dagegen habe ich dem Sport gehuldigt, ich war Florettfechter in dem Fechtclub „Waffenbrüderschaft" und von 1933 bis 1939 eifriger Paddler auf der Ruhr u. dem Baldeneysee. Auch schöne Reisen konnten mich begeistern, so bin ich 1937 zum „Berchtesgadener Land" gefahren und habe so manchen Berg bestiegen, 1938 bin ich mit meinen Eltern nach Berlin gefahren u. haben dort alle Sehenswürdigkeiten besichtigt u. ebenfalls 1938 mit den Eltern nach Cuxhaven, Hamburg u. Helgoland. Vorübergehend habe ich auch dem Werkchor der Fa. Hochtief, meine Baßstimme geliehen.</p>
 <p>Anläßlich einer Feier dieses Werkchores habe ich 1937 in der „Bratmeyer Krone" [?] ein liebes, nettes, schlankes, zartes u. etwas schüchternes Mädchen kennengelernt, das sich in der Folgezeit vornahm, meinen Zunamen zu tragen. Eine frisch-fröhliche Brautzeit folgte, das Mädchen konnte tanzen, ich weniger gut, paddeln konnten wir beide, trinken konnte sie nicht, ich dafür besser. Sylvester 1938</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 25</h3>
+<span class="page-badge">Buchseite 25 <span class="page-badge-total">von 98</span></span>
 <p>haben wir uns verlobt, ich kam für einige Tage vom Westwall heim, es war ein fröhlicher Tag in der Adventzeit 39 [?], im Hause meiner Schwiegereltern. Unsere Hochzeit haben wir für das Frühjahr 1940 festgelegt. Wegen der drohenden Kriegsgefahr u. der damit möglichen frühen Einberufung haben wir die standesamtliche Trauung auf den 8.9.1939 vorverlegt. Eine schlichte Feier, 8 Tage nach Kriegsbeginn, würdigte dieses für uns historische Ereignis u. bedeutete den Krieg, der uns mit der ganzen Welt ungeahnte Opfer u. Strapazen aufbürden sollte. Der Kriegsausbruch verursachte schlagartige Veränderungen im privaten u. öffentl. Leben. Für Lebensmittel u. Kleidung gab es sofort Karten, für Mobiliar u. Hausgeräte wurden auf Antrag Bezugscheine ausgestellt, ebenso für Seife, Benzin, Kohle, Holz, überhaupt für alles. Jede Lichtquelle mußte nach außen verdunkelt werden, 5½ Jahre haben wir im Dunkeln leben müssen. Jeder entbehrliche Mann wurde eingezogen u. kinderlose Frauen wurden dienstverpflichtet. Bald dröhnten die ersten feindlichen Flugzeuge am Himmel, Sirenen</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 26</h3>
+<span class="page-badge">Buchseite 26 <span class="page-badge-total">von 98</span></span>
 <p>flammten auf u. die Flak schoß so wild, daß die Granatsplitter uns nur so um die Ohren [?] regneten. Die Sirenen heulten ihr fürchterliches Lied und die Menschen hasteten mit ihrer wichtigsten Habe zu den wenigen Bunkern. Es begann die Zeit, in der man um sein Leben kämpfen mußte, man mußte schweigen können, man mußte praktisch sein, man mußte organisieren, d.h. Lebensmittel [?] besorgen können. Zu Beginn dieser Zeit, am 2.3.1940, haben meine liebe Frau u. ich vor dem Altar Gottes, in der damals noch kleinen Pfarrkirche zur Hl. Familie auf der Margarethenhöhe, uns das Ja zum Ehestand gegeben. Dieser fröhliche Tag wurde mit allen uns damals noch zur Verfügung stehenden Mitteln gefeiert. Es war gleichzeitig das letzte frohe Zusammensein eines großen Familienkreises, die traditionelle Hochzeitsreise hatte das junge Paar aus kriegsbedingten Gründen bereits einige Monate früher nach Kärnten u. Venedig gemacht [?]. Jetzt nahmen wir unser Bündel u. zogen in die Vorstadt auf dem Berge, nach Remscheid, der Stadt mit dem größten Export-</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 27</h3>
+<span class="page-badge">Buchseite 27 <span class="page-badge-total">von 98</span></span>
 <p>aufkommen nach Übersee. In Remscheid war ich seit Januar 1940 für meine Firma tätig. Ich hatte den Auftrag, ein großes Werkstättengebäude an der Moltkestraße [?] für die „Bergische Stahlindustrie", sowie Fallenkeller [?], Hammerfundamente u. Luftschutzstollen für das benachbarte Werk der „Deutschen Edelstahlwerke" fertigzustellen. Bei einer recht liebenswerten Dame, die in der Blumenstr. ein kleines Schülätchen [?] führte, Frau Selma Kall und ihrer lieben Hausdame, Frl. Lene Richebächer [?], hatten wir zwei möblierte Zimmer gemietet. In unserer Heimatstadt Essen, bekamen wir durch die Vermittlung meines Bruders, in der Schnoortstr. 20 [?] eine 3-räumige Wohnung, die wir aber nur zum Wochenende bewohnten. In Remscheid haben wir trotz des Krieges oder wegen des Krieges manch fröhliche, aber auch traurige Stunde verbringen müssen. Am 27.3.1941 wurde unser Sohn Jörg-Günter im Krankenhaus in Remscheid geboren. Es war ein kräftiges Kind, wir waren alle stolz darauf, besonders mein Vater, da Jörg der erste männliche Erbe war. Leider hat uns der liebe Gott unseren kräftigen, gesunden Jungen am 6.7.1941 wieder genommen.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 28</h3>
+<span class="page-badge">Buchseite 28 <span class="page-badge-total">von 98</span></span>
 <p>Nach einer plötzlichen Erkrankung, vermutlich durch eine Infektion im Luftschutzkeller, ist unser Junge im Krankenhaus gestorben. Er ruht auf dem kath. Friedhof in Remscheid, sein Gräbchen wird heute, nach 13 Jahren, immer noch besucht u. gepflegt. Ein weiteres trauriges Ereignis erschütterte uns am 8.11.1941. Mein lieber Vater, zu dessen 67. Geburtstag wir nach Essen gekommen waren, verstarb plötzlich infolge Herzschlag. Er ruht auf dem Südwestfriedhof in Essen.</p>
 <p>Nach Fertigstellung aller mir aufgetragenen Arbeiten war es meiner Firma nicht möglich, mich weiter zu beschäftigen. Mein Jahrgang war bei der Wehrmacht sehr gefragt u. so wurde ich am 26. März 1942 zu den Pionieren nach Köln-Westhoven eingezogen. Meine liebe Frau war nun in unserer schön eingerichteten Wohnung in der Schnoortstr. allein geblieben u. hatte das zweifelhafte Vergnügen, jede Nacht den Luftschutzkeller zu besuchen. Von Monat zu Monat steigerte sich die Wucht der Fliegerangriffe u. Millionen Ehegatten, Eltern u. Kinder bangten gegenseitig um das Leben ihrer Lieben. Ich hatte</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 29</h3>
+<span class="page-badge">Buchseite 29 <span class="page-badge-total">von 98</span></span>
 <p>inzwischen in Köln eine übertriebene harte Ausbildung genossen, ich drängte mich aber keineswegs zum Heldentum. Wie sich unter Gleichgesinnten, die die aussichtslose Wahnsinnspolitik unserer [Übermacht-?]Regierung nicht unterstützten, kämpfte auch ich nur um mein Leben. Mit List u. Tücke hatte ich bei einer Landesschützeneinheit in Gladbeck unterkommen können. Als ich am 10. August 1942 zum Spieß [Kompaniefeldwebel] gerufen wurde, erfuhr ich durch den Anruf meiner Frau, die im Städt. Krankenhaus in Essen lag, daß uns der liebe Gott ein gesundes Mädchen geschenkt hatte, dem wir den Namen Gisela gaben. Im Januar 1943, ich kam wie so oft auf schwarzen [unerlaubten, ?] Wegen nach Hause, war in der Nähe unserer Wohnung eine Luftmine gefallen. Es hatte sich [?] mit unserer Wohnung was [?] auch so kräftig durchgerüttelt, daß selbst meine liebe Frau im Luftschutzkeller über den Kinderwagen [sich schützend beugen mußte, ?]. Wir haben uns kurz entschlossen, zu einer bekannten Familie in Fretter im Sauerland Verbindung aufgenommen u. konnten noch im Januar nach dort umziehen. Das Haus in der Schnoortstr. ist später</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 30</h3>
+<span class="page-badge">Buchseite 30 <span class="page-badge-total">von 98</span></span>
 <p>vollständig zerstört worden. Im September 1943 wurde ich auf Antrag meiner Firma aus der Wehrmacht entlassen. Ich war zuletzt Gefreiter beim Stab einer Landesschützeneinheit in Recklinghausen gewesen. In Essen übernahm ich eine Bautruppe von 400 Mann, um damit Kriegsschäden an den Werkhallen der Fa. Krupp zu beseitigen. Ich wohnte in der Wohnung meines Bruders, und als diese zerstört wurde, in der Wohnung meiner Schwiegereltern. Es war ein hartes [?] Dasein, alle meine Angehörigen, abgesehen von meinem Bruder u. allen Schwägern, die bei der Wehrmacht dienten, waren ins Sauerland evakuiert. Ich hauste allein in den Wohnungen, putzte u. kochte. Nach jedem Angriff kam ich dazu, das Dach neu zu decken, Fenster u. Türen wieder anzuschlagen u. die Schuttmassen zu entfernen [?]. In manchen Nächten gab es 4, 5 oder 6× Alarm, die Menschen haben in den letzten 2 Jahren nur noch mit ihren Kleidern im Bett liegen können. Das elektrische Licht u. das Wasser fielen auch öfter aus, wir haben uns mit Petroleum oder Karbid geholfen u. das Wasser holten wir von einer Quelle. Als am</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 31</h3>
+<span class="page-badge">Buchseite 31 <span class="page-badge-total">von 98</span></span>
 <ol>
 <li>März 1945 die Amerikaner die Stadt Essen, von Duisburg aus, mit Artillerie beschossen u. ich außerdem als Zugführer beim Volkssturm eingeteilt wurde, habe ich mit meinen letzten Habseligkeiten die Stadt am 11.3.45 im Morgengrauen per Fahrrad verlassen u. bin zum Sauerland gefahren. Bis zum Einmarsch der Amerikaner konnte ich mich hier verborgen halten. Der Krieg war für uns nun, Gott sei Dank, beendet. Wir wurden von unseren Siegern sehr hart gehalten, haben noch manche Gewalttat u. Schikane erdulden müssen, aber wir konnten endlich wieder schlafen u. auch aussprechen, was wir dachten. Im Frühjahr [?] 1945 bin ich mit einem Personenauto DKW, das ich im Sauerland für RM 200,– erworben hatte, nach Essen gefahren. Hier traf ich meinen Bruder, der sich auch von der Wehrmacht abgesetzt hatte. Wir fanden durch Zufall doch eine Wohnung in der Steinkausenstraße 45. Nach Beseitigung der gröbsten Kriegsschäden haben wir unsere Familien geholt. Jetzt begann der große Rückstrom der Menschen, die Essen verlassen hatten, die Stadt hatte 1939 fast 700 000 Einwohner, Ende des Krieges mögen noch 70 bis 80 000 verblieben sein.</li>
 </ol>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 32</h3>
+<span class="page-badge">Buchseite 32 <span class="page-badge-total">von 98</span></span>
 <p>Über 10 000 Menschen waren durch Fliegerangriffe ums Leben gekommen u. ⅔ aller Häuser waren zerstört oder stark beschädigt. Der Lebenskampf wurde jetzt nicht mehr blutig ausgetragen, aber wer über Wasser bleiben wollte, der mußte „organisieren" können. Der Schwarzhandel blühte, u. die Bauern nahmen den ausgebombten Städtern die letzte Habe für Speck, Eier u. Kartoffeln. Mein Bruder hatte auf dem Grundstück seiner ausgebrannten Wohnung einen großen Garten, den haben wir gemeinsam bearbeitet, geerntet haben zwar öfter die üblichen Nachtgespenster [Diebe, ?]. Mit vereinten Kräften haben wir eine Etage des ausgebrannten Hauses wieder aufgebaut u. so konnte mein Bruder mit Familie kurz vor Weihnachten 1946 seine frühere Wohnung wieder beziehen. Angesteckt von dem Baugedanken, habe auch ich mich um den Ausbau einer Ruine bemüht. Auf der so schön gelegenen Margarethenhöhe wurde mir diese zugewiesen. Es stand zwar nur das Kellergeschoß, aber mit Hilfe meiner Firma konnte ich das Haus unter denkbar schwierigsten Umständen wieder aufbauen u. bereits am 27.9.47 beziehen.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 33</h3>
+<span class="page-badge">Buchseite 33 <span class="page-badge-total">von 98</span></span>
 <p>In der Wohnung Steinkausenstr. 45 hatte ich bereits meine Mutter, die während des Krieges in einem Kloster in Giershagen [?] gut aufgehoben war, wieder in die heimatliche Wohngemeinschaft aufnehmen können. Nun wohnten wir, d.h. meine Frau, unsere Tochter Gisela, meine Mutter u. ich, in einem Einfamilienhaus in der Winkelstr. 19 und fühlten uns wie die Könige. Die Lebensmittel-, Wäsche- u. Kleiderzuteilung, die wir in der Nachkriegszeit bis zum Tag der Währungsumstellung am 20.6.48 erhielten, war immer noch rationiert u. denkbar knapp. Eine willkommene, oftmals rettende Beigabe erhielten wir ab 1946 durch die Verwandten meiner Frau aus den U.S.A. Jeden Monat erhielten wir ein Paket mit hochwertigen Lebensmitteln u. getragenen Kleidungsstücken von diesen hochherzigen Spendern. Aber nicht genug mit der einen Spende, diese lieben Verwandten drängten darauf, daß wir nach dort auswandern sollten. Sie boten uns eine möbl. Wohnung an u. schickten sogar die Bürgschaftspapiere. Wir haben das Angebot dankbar angenommen u. bemühten uns bei den</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 34</h3>
+<span class="page-badge">Buchseite 34 <span class="page-badge-total">von 98</span></span>
 <p>amerikanischen Behörden um die Einwanderungsgenehmigung. Aber dann traten einige Umstände ein, die unser Vorhaben ins Wasser fallen ließen. Die U.S.A.-Behörde hatte viel Zeit, sie vertröstete uns noch einige Jahre u. dann wollten wir nicht mehr. Inzwischen war 1948, am 31. August, unser Töchterchen Doris-Petronella geboren worden. Den zweiten Namen Petronella hat sie von ihrer Patentante Nelly Schmitz aus Chicago, U.S.A. Am 12. Februar 1950 schenkte uns der liebe Gott unseren Sohn Günter-Georg-Josef. Mit dieser Masseneinwanderung [?] haben selbst unsere lieben Einlader nicht gerechnet. Außerdem wurde z.Zt. jeder männliche Einwanderer sofort zum Waffeneinsatz nach Korea geschickt, u. — außerdem ging es uns in Deutschland inzwischen sehr gut. Mögen unsere lieben Nachkommen erst die Köpfe mal schütteln, wie man's macht, es ist immer verkehrt.</p>
 <p>Aber nun zurück zu unserem Wohnsitz auf der Margarethenhöhe, wir fühlten uns sehr wohl und langsam kehrten normale Verhältnisse zurück. Der Pfarrer der kath. Kirche zur „Hl. Familie", Pfarrer Rahmen [?], forderte mich</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 35</h3>
+<span class="page-badge">Buchseite 35 <span class="page-badge-total">von 98</span></span>
 <p>1948 auf, einen Entwurf für die Errichtung der Notkirche zu machen. Mein Entwurf wurde allseitig begrüßt, und wenige Tage später habe ich mit sieben ideal gesinnten Männern zum Spaten u. zur Kelle gegriffen. Zum Christkönigsfest 1948 konnte die errichtete Notkirche eingeweiht werden. Seit Frühjahr 1948 war ich auch aktiver Sänger im Kirchenchor u. ab 1949 dessen Schriftführer. In den Kirchenvorstand wurde ich im Herbst 1948 gewählt u. habe meinen Teil zum Ausbau der jetzt bestehenden großen Pfarrkirche beigetragen.</p>
 <p>Bei meiner Firma, der Hochtief A.G., bin ich seit Kriegsende als Bauführer u. Bauleiter vieler Bauten im zerstörten Stadtgebiet eingesetzt worden. Meine Befähigung zur Architektur veranlaßte meine Firma, mir 1949 den Auftrag zum Bau eines neuen Verwaltungsgebäudes in der Recklinghauser Str. 57 zu geben. Im August 1950 wurde der Bau bezogen u. ist der repräsentative Sitz der Zentrale meiner Firma. In der Folgezeit habe ich einige Entwürfe zum Neubau oder Umbau von Wohnhäusern für unsere Direktoren u. Oberbeamten gemacht, die sämtlich zur Ausführung kamen. In dieser Zeit</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 36</h3>
+<span class="page-badge">Buchseite 36 <span class="page-badge-total">von 98</span></span>
 <p>reifte auch bei mir der Gedanke, ein eigenes Wohnhaus mit Garten zu besitzen u. meiner Familie damit eine Sicherheit zu geben. Mit großzügiger Unterstützung meiner Firma habe ich dann 1951 unser jetziges Wohnhaus in Essen-Bredeney, Kampstr. 45 [?], nach eigenen Plänen aufgebaut. Meine Mittel waren zwar sehr gering, und auch die Bauordnung ließ mir eine starke Begrenzung [?] zu, aber ich hatte den Mut, meinen Wunschtraum, ein eigenes Heim zu besitzen u. den Kindern ein schönes Elternhaus zu geben, Wirklichkeit werden zu lassen. Am 25. September 1951 haben wir uns mit einem weinenden Auge von der schönen Margarethenhöhe verabschiedet u. sind mit lachenden Augen in unser Eigentum eingezogen. Der Geburtstag meiner lb. Frau, am 29.9.51, war gleichzeitig der Einweihungs- u. Namenstag [?] des Hauses. Es wurde von Pfarrer Rahmen [?] gesegnet, u. wir haben den lieben Gott gebeten, daß das Haus u. alle seine Bewohner glücklich u. gesund bleiben. Um meiner lieben Frau für all ihre Arbeit, Sorge u. Opfer, die sie sich zum Wohle der Familie aufgebürdet hat, die richtige Würdigung zu geben, haben wir das Haus</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 37</h3>
+<span class="page-badge">Buchseite 37 <span class="page-badge-total">von 98</span></span>
 <p><em>(am Seitenrand nachträglich vermerkt: 20.10.54 / 1.2.77)</em></p>
 <p>auf den Namen Franziska getauft.</p>
 <p>Der vorstehende Lebensablauf, den am 20.10.54 vorläufig endet, ist, ich will es heute ehrlich gestehen, in einer inneren Hast von mir geschrieben worden. In den letzten Wochen dieser Schreibarbeit hatte ich das Gefühl, daß meine Lebenstage gezählt seien.</p>
@@ -506,7 +644,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 38</h3>
+<span class="page-badge">Buchseite 38 <span class="page-badge-total">von 98</span></span>
 <p>gelegen, ein Kreislaufkollaps löste den anderen ab. Übermäßige Geräuschempfindlichkeit, Herzrhythmusstörungen, Platzangst usw. Die Ärzte gingen bei uns ein und aus, und alle machten ein bedenkliches Gesicht.</p>
 <p>Ich wünsche keinem meiner Nachkommenschaft, daß sie diesen Zustand erleben.</p>
 <p>In der Folgezeit, und zwar immer nur im Dämmerzustand durch Einnahme von barbitur- oder bromhaltigen Medikamenten, habe ich meinen Dienst erst stundenweise und später voll ausgeübt. Bei Überanstrengungen, Aufregungen, je nach Wetterlage usw. sind noch viele Ausfallzeiten und Krankenhausbehandlungen eingetreten.</p>
@@ -514,14 +652,14 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 39</h3>
+<span class="page-badge">Buchseite 39 <span class="page-badge-total">von 98</span></span>
 <p>Medikamente. Jahrelang habe ich keinen Alkohol getrunken, nicht geraucht, aber ohne Beruhigungstabletten konnte ich nicht leben.</p>
 <p>Und hier kommt der große Fehler der Ärzteschaft: sie haben mir diese Medikamente in Unmengen verschrieben, und keiner prüfte oder sagte mir die Folgeerscheinungen an. Anfang Januar 1968 bekam ich eine Gelbsucht, spätere Untersuchungen in der Poliklinik in Mölln [?], durch Bauchspiegelungen und Punktierungen, ergaben, daß ich eine durch Medikamente zerfressene Leber, also eine Leberzirrhose, hatte. Ich wurde sofort erwerbsunfähig geschrieben.</p>
 <p>Die nachstehend aufgeführten Kurzberichte geben eine Übersicht, daß man, allerdings bei strengster Lebenshaltung, das Leben erhalten kann, vielleicht sogar in einer</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 40</h3>
+<span class="page-badge">Buchseite 40 <span class="page-badge-total">von 98</span></span>
 <p>sehr aufgeklärten Art.</p>
 <p>Man macht Bilanz über sein Leben, sein Schaffen, über den Sinn des Lebens.</p>
 <p>Aus diesem Grunde habe ich diese Chronik angelegt.</p>
@@ -536,7 +674,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 41</h3>
+<span class="page-badge">Buchseite 41 <span class="page-badge-total">von 98</span></span>
 <p><em>(Ab hier maschinengeschriebene chronologische Ereignisliste, Jahr für Jahr:)</em></p>
 <p><strong>1954</strong>
 - 1.3. Nervenzusammenbruch, Kreislaufkollaps, Herzschwäche.
@@ -572,7 +710,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 42</h3>
+<span class="page-badge">Buchseite 42 <span class="page-badge-total">von 98</span></span>
 <p><strong>1962</strong>
 - 28.4. bis 18.5. Herzanfall, Krankenhaus Huyssenstift.
 - 21.6. bis 24.6. Bauführerfahrt nach Darmstadt, Bergstraße, Michelstadt, Erbach, Amorbach, Miltenberg, Bad Mergentheim, Creglingen, Rothenburg o.T., Heilbronn, Bad Wimpfen, Heidelberg, Mainz.
@@ -607,7 +745,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 43</h3>
+<span class="page-badge">Buchseite 43 <span class="page-badge-total">von 98</span></span>
 <p><em>(Datumsangaben am linken Rand teils überlappend/schwer leserlich, [?] wo unsicher)</em></p>
 <p><strong>1969</strong>
 - 29.4. bis 24.6. 2. Kur in Mölln, Rentenantrag gestellt.
@@ -645,7 +783,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 44</h3>
+<span class="page-badge">Buchseite 44 <span class="page-badge-total">von 98</span></span>
 <p><em>(getipptes Einlageblatt, oben Fortsetzung 1974–1976, unten handschriftlich weitergeführt mit 1977 – Seitenzahl 44 nur einmal am unteren Rand vermerkt, evtl. eingeklebtes Einlageblatt)</em></p>
 <p><strong>1974: Fortsetzung</strong>
 - 18.7. Günter fliegt nach den USA, New York, Chicago, Los Angeles, Hollywood.
@@ -672,7 +810,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 45</h3>
+<span class="page-badge">Buchseite 45 <span class="page-badge-total">von 98</span></span>
 <p><em>(Die gedruckte Kapitelüberschrift „Was ich von meinen Kindern zu erzählen weiß" ist durchgestrichen; die Chronik-Liste wird stattdessen fortgesetzt:)</em></p>
 <ul>
 <li>8.7. Günter/Gisela, kirchliche Trauung in der Pfarrkirche St. Antonius. Einzug in die Erstwohnung Dresdener Str. 5B in Essen.</li>
@@ -688,7 +826,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 46</h3>
+<span class="page-badge">Buchseite 46 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>11.4.78 Transport zum Krankenhaus, Huyssens-Stiftung, Urologie.</li>
 <li>27.4. zur inneren Abteilung verlegt.</li>
@@ -703,7 +841,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 47</h3>
+<span class="page-badge">Buchseite 47 <span class="page-badge-total">von 98</span></span>
 <p>lernt dort den Mann ihres Lebens kennen. Nach ihrer Rückkehr nach Essen hat sie ihren Mann, Wolfgang, auf eine Trennung von ihm vorbereitet. Beide Ehegatten geben zu, daß sie sich seit langer Zeit auseinandergelebt hatten. Sie reichen beide die Scheidung ein.</p>
 <ul>
 <li>16.12. Doris und Karin verlassen Essen und fahren nach Ingolstadt, zu einem ebenfalls in Scheidung lebenden, gewissen Heribert (Harry) Sachs.</li>
@@ -717,7 +855,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 48</h3>
+<span class="page-badge">Buchseite 48 <span class="page-badge-total">von 98</span></span>
 <p><em>(eingeklebtes Blatt, maschinengeschrieben:)</em></p>
 <p>19.1.79 Doris wieder in Essen. Nach ihrer Aussage war die Sehnsucht nach allem, was sie verlassen hatte, größer als der Supertyp aus Ingolstadt. Sie will sich mit Wolfgang aussöhnen.</p>
 <p>Karin reagiert noch sauer, sie möchte bei ihren Großeltern verbleiben und auch nicht zum 6. Mal umgeschult werden. Wir sind, trotz unserer ramponierten Gesundheit und den vielen seelischen Belastungen, die wir verkraften und noch verkraften müssen, damit einverstanden. Aber wie reagiert das Blut? ............ Siehe Anhang, lose Blätter [?]</p>
@@ -729,7 +867,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 49</h3>
+<span class="page-badge">Buchseite 49 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>19.6. Karin hat das 6. Schuljahr beendet. Ihr Verhalten uns gegenüber ist für uns nicht mehr zu ertragen. Endlich tragen die Entwicklungsjahre Früchte [?]. Auf unser Drängen kehrt sie heute, am 19.6., ins Elternhaus zurück. Sie war vom 5.1.79 bis zum 19.6.79 bei uns.</li>
 <li>14.7. bis 4.8.79. 4. Kur in Bad Driburg.</li>
@@ -740,7 +878,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 50</h3>
+<span class="page-badge">Buchseite 50 <span class="page-badge-total">von 98</span></span>
 <p>spenden Vater u. Mutter jedem Enkelkind je DM 1.500,–.</p>
 <ul>
 <li>30.8.79. Rudi Schmitz und Frau Berny [?] aus U.S.A., sowie Willi Brüggemann aus Arnheim, bei uns zu Gast.</li>
@@ -756,7 +894,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 53</h3>
+<span class="page-badge">Buchseite 53 <span class="page-badge-total">von 98</span></span>
 <p><em>(Buchseiten 51–52 fehlen in dieser Zählung – vermutlich für den erwähnten Bildband/Fotoseiten reserviert; der Text springt direkt von Seite 50 auf Seite 53. Überschrift „Aus dem Leben meines Vaters" durchgestrichen, Chronik-Liste wird fortgesetzt:)</em></p>
 <p>geboren hat.</p>
 <ul>
@@ -770,7 +908,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 54</h3>
+<span class="page-badge">Buchseite 54 <span class="page-badge-total">von 98</span></span>
 <p>und brauner Farbstoff. Niere oder Auflösung der Restleber?</p>
 <ul>
 <li>29.12.80. Vater geht zum Urologen Dr. Heinrich [?]: Urinuntersuchung, 2× Röntgen, dann Zystoskopie (Blasenspiegelung). Befund: ein Nierenstein in der Größe eines halben Männerdaumens befindet sich in der Blase. Dr. H. zerkleinert den glasharten [?] Stein in 1½-stündiger Arbeit. Die Splitter werden laufend durchs Zystoskop herausgespült. Viel Blut. Mutti holt mich mit dem Wagen ab [?].</li>
@@ -782,7 +920,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 55</h3>
+<span class="page-badge">Buchseite 55 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>3.1.81. Dr. H. kommt, sonst wie vor.</li>
 <li>4.1. Dr. H. kommt, entfernt den Katheter, habe 11 kg Gewicht verloren, kann aufstehen.</li>
@@ -796,7 +934,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 56</h3>
+<span class="page-badge">Buchseite 56 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>24.1.81. Wir sind der Ansicht, daß bei der Hauserbteilung [?], lt. Vertrag vom 14.8.1973, die Abfindung an Doris, in Höhe von DM 30.000,–, in Relation zum Hauswert, zu gering war. Doris hat inzwischen DM 30.000,– von Herbert u. Gisela für Sachwerte, die wir an die Vorgenannten geleistet haben, zusätzlich DM 5.000,– erhalten. Ferner haben wir von unseren Ersparnissen an Doris später DM 5.000,– gezahlt. Doris hat damit von Albert[s] DM 30.000,– und von uns 10.000,–, also insgesamt DM 40.000,– erhalten.</li>
 <li>26.1.81. Die Commerz-Bank und die Postsparkasse hat von uns über die vorhandenen Konten: Commerzbank Nr. 3832490/92, Postsparbücher Nr. 59.897.235 + 59.897.236, Nr. 57.761.285, eine Vollmacht erhalten, daß unsere Tochter Doris, in Krankheitstagen und nach dem Tode, die Beträge kündigen kann, bzw. Zinsbeträge für uns abholen kann. Nach dem Tode des Letzten von uns ist Doris verpflichtet, den Geschwistern</li>
@@ -804,7 +942,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 57</h3>
+<span class="page-badge">Buchseite 57 <span class="page-badge-total">von 98</span></span>
 <p>die Erlöse vorzulegen [?] und nach den Bestimmungen unseres Testaments zu handeln.</p>
 <ul>
 <li>29.1.81. Siehe Text wie am 24.1.81, Seite 56: heute haben wir an Günter DM 5.000,00 ausgezahlt. Günter hat somit ebenfalls DM 40.000,– erhalten.</li>
@@ -815,7 +953,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 58</h3>
+<span class="page-badge">Buchseite 58 <span class="page-badge-total">von 98</span></span>
 <p>Mein Sohn gab mir zur Antwort: „Die jungen Leute denken und handeln anders, man möge ihnen nur ihren eigenen Weg gehen lassen, sie kämen auch zum Ziel!" Mit anderen Worten: misch dich nicht mit deinen alten Ansichten in unsere Angelegenheiten.</p>
 <p>Solche Kopfschläge habe ich nun auch an anderen Personen schon oft erhalten. Aber jetzt reicht es mir, ich bin bei aller Liebe, anderen Menschen aus dem reichen Schatz meiner Erfahrungen zu beraten und zu unterstützen, nicht mehr im Leiden [?] der Fische geboren, ich werde in Zukunft, in jeder Einsicht, aber auch in jeder, ein Fisch sein [?].</p>
 <p>Man wird mir sagen: für so eine Bagatelle soviel Aufregung!?</p>
@@ -823,13 +961,13 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 59</h3>
+<span class="page-badge">Buchseite 59 <span class="page-badge-total">von 98</span></span>
 <p>diplomatische Regeln zu beachten, um an diesem Glück teilzunehmen. Wir haben uns sagen lassen, daß die Haustür anfänglich nur auf ein bestimmtes Morsezeichen geöffnet wurde. Doris und Wolfgang sind vorgefahren, der Wagen von Kisters stand vor der Haustür. Auf mehrfaches Klingeln öffnete die Tür sich nicht. Doris hat von ihrem Hause aus wohl 10× eine telefonische Verbindung herzustellen versucht, doch etwa beim 10. Versuch reagierte unser Sohn. Als er von den vergeblichen Versuchen hörte, gab er die akademische Antwort: „Es steht mir frei, die Haustür zu öffnen oder den Hörer abzunehmen!"</p>
 <p>Seit dem 8.7.1977 wohnt unser Sohn in der Drostener Str. [?]. Wir sind bis heute protokollgerecht, d.h. mit genauer Zeit des Kommens und in den meisten Fällen auch des Gehens, insgesamt 9× eingeladen worden. In der letzten Weihnachtszeit</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 60</h3>
+<span class="page-badge">Buchseite 60 <span class="page-badge-total">von 98</span></span>
 <p>hat man von dem herrlichen Christbaum gesprochen, wir haben keinen gesehen. Wir hören nur davon, daß sie sich [?] befinden, aus dritter Stelle und aus eigenem Munde vernehmen wir, daß sie da und dort waren, daß ihnen sonst die Decke über den Kopf fällt.</p>
 <p>O selige Zeit, als die alte Generation noch offen und ehrlich miteinander sprechen konnte, da Häuser und Herzen keinem verschlossen waren.</p>
 <p>Am 12.2. ergeht an unseren Sohn ein Geburtstagsgruß (Fest!). Der Beginn ist schon festgelegt und der Abgang ist natürlich bereits angedeutet, da unser Sohn sich schon geäußert hat, daß er zur Chorprobe gehen muß.</p>
@@ -837,7 +975,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 61</h3>
+<span class="page-badge">Buchseite 61 <span class="page-badge-total">von 98</span></span>
 <p><em>(Überschrift „Aus dem Leben meiner Mutter" durchgestrichen, Chronik-Liste wird fortgesetzt:)</em></p>
 <p>Ein alter Kister läßt sich nicht in ein Korsett einschnüren.</p>
 <p>Die Mutti hat vollständige Freiheit, in dieser Beziehung sind wir freier als die Neuzeit, wir sind emanzipiert, aber beide [?]!</p>
@@ -847,7 +985,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 62</h3>
+<span class="page-badge">Buchseite 62 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>30.3.81. Günter, Gisela und Markus nach Essen-Kettwig, 18, Neckarstr. 68 gezogen.</li>
 <li>11.5.81. Ferienwohnung in Hillingen-Wasel [?] bis zum 1.6.81 gemietet.</li>
@@ -857,7 +995,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 63</h3>
+<span class="page-badge">Buchseite 63 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>21.7.81. Bei Herrn Strüsser [?] gewesen. Differenzen zwischen Gisela u. Strüsser [?] geklärt.</li>
 <li>24.7.81. Aktennotiz an Pastor Soltenberg [?] und Herrn Strüsser über die Aussprache vom 21.7. übergeben.</li>
@@ -872,7 +1010,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 64</h3>
+<span class="page-badge">Buchseite 64 <span class="page-badge-total">von 98</span></span>
 <p><em>(Datenlücke im Original: Eintrag springt von Oktober 1981 auf März 1982.)</em></p>
 <ul>
 <li>4.3.1982. Vater, 70 Jahre alt, ein schönes Fest. (Siehe Fotos im Album!)</li>
@@ -889,7 +1027,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 65</h3>
+<span class="page-badge">Buchseite 65 <span class="page-badge-total">von 98</span></span>
 <p>Arbeitslose, wir haben 10.000 Junglehrer, die auf eine Anstellung warten. Bei Abgabe der Beamtenurkunde wurde Günter gesagt, daß die Beamtung aufgrund seiner guten Leistungen erfolge, aber er wäre wohl [?] der letzte Lehrer, der übernommen würde.</p>
 <ul>
 <li>29.9. Wolfgang zur Montage nach Peru (Lima) versetzt.</li>
@@ -902,7 +1040,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 66</h3>
+<span class="page-badge">Buchseite 66 <span class="page-badge-total">von 98</span></span>
 <p>platzen. Vom 27.1. bis 3.2. im Krupp-Krankenhaus behandelt worden. Mit Sonden die Speiseröhre und den Magen optisch betrachtet, Röntgenaufnahmen, Ultraschalluntersuchung, Diätkost, alles O.K.</p>
 <ul>
 <li>25.1. Karin beginnt eine Friseurlehre, ihr Wunschtraum.</li>
@@ -917,7 +1055,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 67</h3>
+<span class="page-badge">Buchseite 67 <span class="page-badge-total">von 98</span></span>
 <ul>
 <li>17.2.83. Gisela neuer Zusammenbruch, vom 17.2. bis 8.3. wieder in die Neurologie, 3. Mal. Nähere Einzelheiten zu diesem Kapitel, siehe Anlage.</li>
 <li>1.3. Herbert muß seine Tätigkeit in Forst [?] aufgeben, angeblich durch ein neues Gesetz. Sein gerade gekaufter, aber noch nicht benutzter PKW gibt er mit erheblichem Verlust wieder zurück. Von dieser Summe und seinem normalen Gehalt bleiben noch 50,– bis 100,– DM für den Lebensunterhalt, die größte Summe dient zur Schuldabtragung! Nach Abtragung einer uns unbekannten Schuld soll es der Familie in 2 bis 3 Jahren etwas besser gehen. Die Gehaltsabtretung ist erst abgetragen, wenn er 70 Jahre alt wird! Wir tragen monatlich zur Ernährung von Gisela und den Kindern DM 500,– und mehr dazu bei. Unser Gesamtbeitrag beläuft sich bis heute auf etwa DM 10.000,– bis 12.000,–.</li>
@@ -926,7 +1064,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 68</h3>
+<span class="page-badge">Buchseite 68 <span class="page-badge-total">von 98</span></span>
 <p>Essen-Heidhausen [?], die zum Klinikum Essen zugehörig ist, eingewiesen worden. Sie wird dort von Internisten, Psychotherapeuten betreut. Einzelaussprachen, Gruppenaussprachen, Bastelarbeit, Schwimmen, Gymnastik usw. Sie soll dort 12 Wochen verbleiben, kann aber zum Wochenende nach Hause kommen. Herbert drängt auf Besserung ihres Zustandes, damit sie so schnell wie möglich einen Beruf ausüben kann, um Geld einzubringen, aber, aber?</p>
 <ul>
 <li>19.5. Gisela II. in das Elisabeth-Krankenhaus [?] eingewiesen. Sie hat schon lange Schmerzen im Unterleib.</li>
@@ -936,35 +1074,35 @@
 <p><em>Fortsetzung Seite 89.</em></p>
 </section>
 
-<h2 id="kap-eltern" style="margin-top:60px;">&bdquo;Aus dem Leben meiner Eltern&ldquo;</h2><p class="intro" style="margin-top:-6px;">Ab hier: ein neues Kapitel der Chronik. Buchseiten 69&ndash;74 stammen vermutlich von Josefs Vater Johann-Georg Kister, Buchseiten 75&ndash;78 (unterschrieben, 1948) von Josefs Mutter Johanna Marie Kister geb. Spiegel.</p>
+<div class="chapter-opener" id="kap-eltern"><div class="chapter-eyebrow">Kapitel 2</div><h2>&bdquo;Aus dem Leben meiner Eltern&ldquo;</h2><p class="chapter-sub">Ab hier: ein neues Kapitel der Chronik. Buchseiten 69&ndash;74 stammen vermutlich von Josefs Vater Johann-Georg Kister, Buchseiten 75&ndash;78 (unterschrieben, 1948) von Josefs Mutter Johanna Marie Kister geb. Spiegel.</p><div class="divider">&#8258; &#8258; &#8258;</div></div>
 
 <section class="chronik-seite">
-<h3>Buchseite 69</h3>
+<span class="page-badge">Buchseite 69 <span class="page-badge-total">von 98</span></span>
 <p><em>(Neues Kapitel: „Aus dem Leben meiner Eltern". Der Text ist nicht von Josef Kister selbst verfaßt, sondern – dem Inhalt nach zu urteilen – von seinem Vater Johann-Georg Kister (1874–1941), der hier auf Bitten seines Sohnes [Josef] die Geschichte seines eigenen Vaters Georg-Johann Kister aufschrieb. Josef hat diesen älteren Text später in seine Chronik übernommen.)</em></p>
 <p>Mit diesen Zeilen erfülle ich den Wunsch meines Sohnes, einiges über die Lebensdaten seiner Vorfahren niederzuschreiben, damit unsere Nachkommen sich ein Bild machen, von welchen vielseitigen väterlichen Vorfahren sie abstammen. Und so will ich das Wenige, was ich weiß, in Worte kleiden.</p>
 <p>Mein Vater, Georg-Johann Kister, wurde als der älteste Sohn des Gutsbesitzers [?] Kasper Kister u. seiner Frau Josefa geb. Oestreich am 14. August 1838 in Großenlüder im Kreise Fulda geboren. Er hatte noch einen Bruder [?], der im Kriege '64 [?] gefallen ist. Da die Mutter früh starb, heiratete sein Vater wieder. Aus dieser Ehe ging eine Tochter hervor, Marie [?], die schon früh in fremde Dienste gegeben wurde, u. nach dem</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 70</h3>
+<span class="page-badge">Buchseite 70 <span class="page-badge-total">von 98</span></span>
 <p>Tod der beiden Eltern mit ihrem Erbteil sich in ein Kloster in Fulda einkaufte u. dort bis zu ihrem Tod verblieb.</p>
 <p>Mein Vater ging nach dem Tode seines Vaters 1859, mit 21 Jahren, von Hause fort und arbeitete als Maurer einige Zeit in Gelsenkirchen. Vom Jahr 1865 an kam er nach Essen u. dort bei der großen Baufirma Funke u. Schürenberg an. Am 18.8.1867 heiratete er die junge Marie Mummdey [?], Tochter des Wilh. Mummdey [?] u. seiner Frau Gertrud geb. Lallmann, und schloß mit ihr den Bund fürs Leben. Nach seiner Verheiratung fuhr er mit seiner jungen Frau in seine Heimat u. besuchte das mütterliche [?] Anwesen [?], wo die Familie sich noch</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 71</h3>
+<span class="page-badge">Buchseite 71 <span class="page-badge-total">von 98</span></span>
 <p>jetzigen Besitzers. Noch heute ist der Name Kister dort geläufig, denn selbst vor einigen Jahren, als 2 Brüder meines Namens mit ihren Frauen die Heimat des Vaters besuchten, mußten sie oft die Bezeichnung hören: „Seid ihr des Kisterhofs?"</p>
 <p>Nachdem mein Vater den Hausverkauf getätigt hatte [?] und seine Schwester abgefunden war [?], bereitete er sich von dem Erlös ein Eigenheim in Essen, in der [Straßenname unleserlich] 19 [?], in der Nähe des Hauptfriedhofs. Nach dem Kriege 70/71 [1870/71] war der Bergbau sehr in Blüte, fand auch er dort sein Teil. In dem Bergviertel, das damals ziemlich am Rande der Stadt lag, gab es noch viel Freiland. Auf meines Vaters Grundstück saßen ungefähr 1 Morgen [?],</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 72</h3>
+<span class="page-badge">Buchseite 72 <span class="page-badge-total">von 98</span></span>
 <p>dazu ein freier Küchengarten [?]. Da gab es viel Arbeit, u. da mußten die Kinder tüchtig helfen. Aus der Ehe wurden 9 Kinder das Licht der Welt [geboren], davon starben vier im zarten Alter.</p>
 <p>Mein Vater, als der 4. Geborene, rückte durch den Tod der beiden Ältesten an die zweite Stelle. Das Älteste war ein Mädchen, Therese, die der Mutter im Haushalt helfen mußte. Meinem Vater oblag es, seinem Vater zur Hand zu gehen. Da mußte er oft des Morgens, wenn andere noch schliefen, mit seinem Vater das mit noch [stinkender, ?] Flüssigkeit gefüllte Faß auf einem Karren zum Feld fahren. Nicht selten blieb der Duft von 7 bis 11 [Uhr] an ihm haften, so daß seine Mitschüler beim Unterricht</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 73</h3>
+<span class="page-badge">Buchseite 73 <span class="page-badge-total">von 98</span></span>
 <p>von ihm abrückten u. sagten: „Kister, du stinkst!"</p>
 <p><em>(Ab hier wechselt der Erzähler erkennbar in die Ich-Form und schreibt nicht mehr über seinen Vater, sondern über sich selbst – vermutlich Johann-Georg Kister, geboren am genannten Datum, das exakt mit den Angaben aus der Ahnentafel übereinstimmt.)</em></p>
 <p>Ich wurde geboren am 10.11.1874. Ich besuchte die Schule von Hardegsen [?] mit gutem Erfolg. Mit 14 Jahren verließ ich die Schule u. trat bei einer Landgrafschaft [?] in Dienst. Mit 16 Jahren ging ich dann zur Zeche, mit dem Ziel, Steiger zu werden.</p>
@@ -972,43 +1110,43 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 74</h3>
+<span class="page-badge">Buchseite 74 <span class="page-badge-total">von 98</span></span>
 <p>1898, wobei mehrere hundert Bergleute den Tod gefunden hatten. Er ging darum zur Firma Krupp, u. brachte es durch Fleiß u. große Materialkenntnis zum Meister.</p>
 <p>Ein Bericht über meine Mutter [?] hätte schon die vorigen Seiten einnehmen müssen. So will ich ihn hier folgen lassen.</p>
 <p>Was ihr Leben ist, nicht viel zu berichten. Wie schon erwähnt, war sie die Tochter des Gutsbesitzers W. Funners [?] aus Rellinghausen u. wurde geb. am 31.12.1845. Doch früh verlor sie ihre Eltern u. wohnte dann bei ihrer Schwester, der Witwe Brendel, deren Mann in der Zeche verunglückt war. Dort wurde damals [an Bergleute] Zimmer vermietet, u. dort lernte sie meinen Vater kennen.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 75</h3>
+<span class="page-badge">Buchseite 75 <span class="page-badge-total">von 98</span></span>
 <p><em>(Der Text wechselt hier erneut die Erzählerin – die Angaben zu „Heinrich Spiegel, geb. Horn/Westf." passen zum mütterlichen Großvater aus der Ahnentafel. Es spricht vieles dafür, daß dieser Abschnitt von Josefs Mutter, Johanna-Maria Kister geb. Spiegel, über ihren eigenen Vater geschrieben wurde.)</em></p>
 <p>Sie war eine häusliche [?] Frau u. wurde eine tüchtige Mutter, die ich oft bewundert [?] habe. Am 22.12.1911 starb sie leider viel zu früh.</p>
 <p>Mein Vater, Heinrich Spiegel, geb. am 4. Mai 1848 in Horn in Westf. als Sohn des Landwirts Ludwig Spiegel u. seiner Frau Gertrud geb. Stiens. Als jüngerer Bursche [?] lernte er neben seiner landwirtschaftlichen Tätigkeit die Kunst des Webens. Schöne, von ihm gewebte Tischwäsche befindet sich noch heute im Besitz der Familie. Als der Krieg 70/71 ausbrach, meldete er sich freiwillig zur Teilnahme am Feldzuge. Bei dem Einzug unserer Truppen in Paris war er dabei, wovon er uns Kindern später oft erzählte, gleichzeitig gab er uns auch Proben seines französischen Sprachschatzes zum Besten.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 76</h3>
+<span class="page-badge">Buchseite 76 <span class="page-badge-total">von 98</span></span>
 <p>Nach Beendigung des Krieges ging er zur Zeche u. arbeitete sich in Essen hoch. Auf der Kruppschen Zeche Wilzer [?] brachte er es zum Steiger.</p>
 <p>Am 12.7.1874 verheiratete er sich mit Bernhardine [genannt Lisette] Mumdey, Tochter des Ehepaares Ignatz Mumdey u. der Ehefrau geb. Koppelkamp. Diese, im Jahre 1852 geborene, wurde meine Mutter. Leider starb meine Mutter schon mit 33 Jahren, im Jahre 1885, als ich ein Kind von 2½ Jahren war.</p>
 <p>Mein Vater war der beste Vater, den ich mir denken kann, u. er ließ uns die Mutter nur wenig vermissen. Wir Kinder, wir waren 5, hingen mit großer Liebe u. Verehrung an ihm. Das Leben hat ihm oft mitgespielt, Krankheit u. Tod sind oft bei ihm eingekehrt. Nach dem</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 77</h3>
+<span class="page-badge">Buchseite 77 <span class="page-badge-total">von 98</span></span>
 <p>Tode meiner Mutter warb er um die Freundin derselben zur Frau, doch auch diese starb ihm schon wieder, nach kaum 2 Jahren, infolge eines Unglücksfalls. Aus dieser zweiten Ehe [entstammte] eine Tochter, unsere vielgeliebte Schwester Gertrud, die uns mit 21 Jahren durch den Tod entrissen wurde. Eine weitere Schwester starb im zarten Alter von 14 Jahren. Unter diesen Schicksalsschlägen hat mein Vater sehr gelitten. Seine letzten Lebensjahre waren sehr freudlos [?]. Ein Schlaganfall führte bei ihm eine vollständige Lähmung herbei. Bei völliger Geistesfrische mußte er 5½ Jahre das Bett hüten, bis er, 75-jährig, am 27.8.23 durch einen sanften Tod erlöst wurde.</p>
 <p>Bei einem Aufenthalt bei meiner Schwester in Essen – ich war noch ein kleines Kind, weil meine Mutter tot war – bei Verwandten in Bochum zu Gast [?],</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 78</h3>
+<span class="page-badge">Buchseite 78 <span class="page-badge-total">von 98</span></span>
 <p>traf ich im November des Jahres 1902 meinen Mann, den ich schon von Kind an kannte, denn bei seiner Mutter fanden wir mutterlosen Halbwaisen [?] inniges Verständnis. Wir beschlossen, gemeinsam den Bund fürs Leben zu schließen. Die Hochzeit war im Mai 1904 u. wurde im schönen Hause des Onkels [?] in Bochum gefeiert. In Rüttenscheid [?] siedelten wir unser Heim auf. Unsere Ehe wurde mit 3 Kindern gesegnet. Mein Mann war mit viel treuer Liebe seinen Kindern ein guter, sorgender Vater. Leider mußte ein Herzschlag seinem Leben am 8.10.41 [?], 67 Jahre alt, ein vorzeitiges Ende setzen. Nach Beendigung des großen Völkerringens, wo es so wenig Wohnungen zur Genüge gab, habe seither ich bei meinem jüngsten Sohn Josef ein Heim gefunden.</p>
 <p>Aufgeschrieben im Jahre 1948.
 <strong>Johanna Marie Kister geb. Spiegel</strong></p>
 </section>
 
-<h2 id="kap-laudatio" style="margin-top:60px;">&bdquo;Laudatio&ldquo; &ndash; Josef über seine Eltern</h2><p class="intro" style="margin-top:-6px;">Ein späterer Nachtrag von Josef Kister selbst, datiert 10.1.1981.</p>
+<div class="chapter-opener" id="kap-laudatio"><div class="chapter-eyebrow">Kapitel 3</div><h2>&bdquo;Laudatio&ldquo; &ndash; Josef über seine Eltern</h2><p class="chapter-sub">Ein späterer Nachtrag von Josef Kister selbst, datiert 10.1.1981.</p><div class="divider">&#8258; &#8258; &#8258;</div></div>
 
 <section class="chronik-seite">
-<h3>Buchseite 79</h3>
+<span class="page-badge">Buchseite 79 <span class="page-badge-total">von 98</span></span>
 <p><em>(Die gedruckte Kapitelüberschrift „Aus dem Leben des Vaters meiner Frau" ist durchgestrichen; handschriftlich in blauer Tinte ergänzt: „meiner Eltern. Laudatio!" – dieser Abschnitt ist wieder von Josef Kister selbst, als späterer Nachtrag datiert 10.1.81 laut Randvermerk.)</em></p>
 <p>Mein Vater war ein Patriarch, ein Ebenbild seines Vaters. Er war für Ordnung und Sauberkeit, sein Wort galt. Seine Erziehung war streng. Wenn eines der Kinder ohne triftigen Grund oder festgelegte Erlaubnis nach 22 Uhr nach Hause kam, der fand eine verschlossene Tür vor. Der Übeltäter mußte schellen, und dann gab's eine Abreibung. Aber hinter dieser Strenge war ein weicher Kern. Er freute sich wie ein Kind auf Weihnachten.</p>
 <p>Er war stolz, als ich mein Ingenieurexamen bestanden hatte. Als ich meine Reise zum Westwall 1936 antrat, brachte er mich zum Zuge, die Tränen standen in seinen Augen. Bei meiner Hochzeit 1940 mußte er seine Festrede unterbrechen, er sprach trotz allem [?]. Die Liebe, die ich erfahren habe, ich erkenne u. liebe meinen Vater [?].</p>
@@ -1016,37 +1154,37 @@
 <p><em>(Randvermerk in blauer Tinte, vom 10.1.81, sinngemäß:)</em> „Euch beiden gedenke ich in liebevollen Gedanken. Ihr wolltet es sicher nicht anders. Euer dankbarer Sohn! 10.1.81" [?, Randnotiz schwer leserlich]</p>
 </section>
 
-<h2 id="kap-franziska-erzaehlt" style="margin-top:60px;">Franziska Kister erzählt ihr eigenes Leben</h2><p class="intro" style="margin-top:-6px;">Ab hier schreibt Franziska Kister (geb. Kerls) ihre eigene Lebensgeschichte, in blauer Tinte, als Ergänzung zu Josefs Chronik.</p>
+<div class="chapter-opener" id="kap-franziska-erzaehlt"><div class="chapter-eyebrow">Kapitel 4</div><h2>Franziska Kister erzählt ihr eigenes Leben</h2><p class="chapter-sub">Ab hier schreibt Franziska Kister (geb. Kerls) ihre eigene Lebensgeschichte, in blauer Tinte, als Ergänzung zu Josefs Chronik.</p><div class="divider">&#8258; &#8258; &#8258;</div></div>
 
 <section class="chronik-seite">
-<h3>Buchseite 80</h3>
+<span class="page-badge">Buchseite 80 <span class="page-badge-total">von 98</span></span>
 <p><em>(Auch hier weiterhin blaue Tinte – nun schreibt erkennbar Franziska Kister selbst ihre eigene Lebensgeschichte, als Ergänzung zu Josefs Chronik.)</em></p>
 <p>Ich möchte nun meinen Nachkommen auch etwas über mein Leben berichten, um meinem Mann nicht nachzustehen, der ja schon so manches zu Papier gebracht hat, auch von mir. Ich wurde am 29.9.1915 als dritte Tochter des Stadtschreibers Karl Kerls in Essen-Borbeck, am Fliegenbusch, geboren. Als ich 1 Jahr alt war, zogen meine Eltern zur Margarethenhöhe und mieteten ein schönes Einfamilienhaus, das unmittelbar am Wald lag, mit Garten, und daher die Straße „Waldlehne" hieß, No. 39. Hier habe ich noch 3 Geschwister bekommen, wir waren also mit 6 Kindern. Mein Vater hatte sich so langsam zum Stadtinspektor hochgearbeitet und war ein sehr lebensbejahender, fröhlicher Mann, der seine Kinder über alles liebte und immer für seine Familie sorgte. Als meine älteste Schwester 1933 plötzlich</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 81</h3>
+<span class="page-badge">Buchseite 81 <span class="page-badge-total">von 98</span></span>
 <p>starb, sie war Mutter von 3 kleinen Jungens, hatte das meine Eltern sehr getroffen, und sie kamen über viele Jahre schlecht darüber hinweg. Meine älteste Schwester hieß Toni. Dann kam Maria, heute 69 Jahre alt, wir beide haben ein gutes Verhältnis auch heute noch. Ihr Mann war Soldat und ist seit 1945 vermißt. Maria wohnt heute mit ihrer einzigen Tochter Ingrid mit Familie in meinem Elternhaus Waldlehne 39. Die nächste im Bunde war ich, ich zähle heute 65 Jahre. Nun kam Wilma, sie ist heute 62 Jahre, sie hat ihr Examen als Säuglingsschwester gemacht. 1940 heiratete sie den heutigen Dipl.-Kaufmann Gert Schulz-Vahle, und wohnt in Hamburg-Farmsen. Dann stellte sich der erste Sohn ein, Karlheinz, er ist 1921 geboren und im zweiten Weltkrieg 1944 in Rußland gefallen. 1926 wurde meinen Eltern das 6.</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 82</h3>
+<span class="page-badge">Buchseite 82 <span class="page-badge-total">von 98</span></span>
 <p>und letzte Kind unserer Familie geschenkt, es war ein Sohn, er wurde auf den Namen Josef getauft. Auch er wurde nach seiner Schulzeit vom Hitlerregime beschlagnahmt. Er kam zum Arbeitsdienst, wurde anschließend Soldat, wurde Gefangener der Amerikaner und verbrachte seine Gefangenschaft in Norfolk U.S.A., dann in England. Heute ist er mit einer sehr tüchtigen Flüchtlingsfrau aus Ostpreußen verheiratet. Sie besitzen ein schönes Einfamilienhaus in Bochum-Riemke.</p>
 <p>Meine Mutter war eine ruhige und liebe Frau, die nur für ihren Mann und ihre Kinder da war. Den heutigen Lebensstil würde sie kaum verstehen, es war alles viel einfacher, und man hatte auch viel weniger Probleme. Wir haben eine sehr schöne Jugend erlebt, zwar einfach, aber sehr glücklich. Wir spielten im Wald, wo man noch ohne</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 83</h3>
+<span class="page-badge">Buchseite 83 <span class="page-badge-total">von 98</span></span>
 <p>Angst spielen konnte, oder auf der Straße, wo kein Auto fuhr. Ich begann mit 14 Jahren eine Lehre in der Damenkonfektion. Nach 3 Jahren war ich Verkäuferin, und es war eine sehr schlechte Zeit. Ich arbeitete bei verschiedenen Firmen, und zum Schluß bei der Firma Cramer und Meermann, in der Damenkonfektion. Da man sehr wenig Geld verdiente, habe ich umgeschult und bin bei der Firma Krupp in die Hollerith-Abteilung gegangen, wo das Gehalt im Monat 180,– DM war. Ich habe dann 1937 meinen Mann kennengelernt und 1940 geheiratet. Dann kam der Krieg, der uns allen schwer zu schaffen machte. Mein Mann wurde Soldat für eine kurze Zeit, und wir saßen abends mit Angst im Luftschutzbunker. Unser zweites Kind Gisela ist 1942 geboren, unser erstes Kind, ein Sohn Jörg-Günter, ist im Alter von 9 [?] Wochen gestorben, so daß</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 84</h3>
+<span class="page-badge">Buchseite 84 <span class="page-badge-total">von 98</span></span>
 <p>wir große Sorgen um unser zweites Kind hatten. Ich habe auf Anraten meines Mannes mich bemüht, mit Gisela aus der Gefahrenzone zu kommen, und habe von Anfang 1944 bis April 1945 mit unserem Kind im Sauerland gelebt, in Fretter bei Finnentrop. 1945, nach Kriegsende, holte mein Mann uns nach Essen zurück, nachdem er schon eine Zeitlang in Essen als Bauleiter tätig war. Ich konnte Essen nicht mehr erkennen, es lag alles in Schutt und Asche. Wir waren glücklich, daß der Krieg zu Ende war. 1948 wurde unsere Tochter Doris geboren, sie ist verheiratet und hat eine Tochter Karin, heute 14 Jahre alt. Karin hat bis zum 7. Lebensjahr ganz bei uns gewohnt, weil Doris arbeiten mußte, da die erste Ehe nicht gut ging. Karin hängt heute noch sehr an uns und besucht uns oft. Doris heiratete 1972</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 85</h3>
+<span class="page-badge">Buchseite 85 <span class="page-badge-total">von 98</span></span>
 <p>wieder, und Karin ganz zu sich genommen. 1950 wurde unser Sohn Günter Georg Josef geboren. Er war ein ruhiger, lieber Junge. Heute ist er Sonderschullehrer (Beamter) an der Augustinusschule auf der Margarethenhöhe, er ist verheiratet, und seine Frau ist Realschullehrerin, sie haben einen kleinen Sohn von 10 Monaten. <em>(Das wärst du, Markus – geboren 3.3.1980, im Januar 1981 also rund 10 Monate alt.)</em></p>
 <p>Nähere Einzelheiten über unsere Ehe, Wohnverhältnisse, gehen aus dem Bericht meines Mannes hervor!</p>
 <p><em>Geschrieben am 14. Januar 1981, für unsere Kinder und Enkel aufgeschrieben, damit sie wissen, wie unser Leben verlief.</em></p>
@@ -1055,7 +1193,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 86</h3>
+<span class="page-badge">Buchseite 86 <span class="page-badge-total">von 98</span></span>
 <p><em>(Josefs „Laudatio" für Franziska, in blasser Tinte/Bleistift geschrieben:)</em></p>
 <p>Nach diesen Zeilen meiner Ehefrau – sagen wir besser, wie immer alle, Mutti – möchte ich einiges hinzusetzen.</p>
 <p>Die Mutti ist das Ebenbild ihrer Mutter, zwar moderner, geprägt vom Zeitgeist unserer Generation.</p>
@@ -1064,7 +1202,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 87</h3>
+<span class="page-badge">Buchseite 87 <span class="page-badge-total">von 98</span></span>
 <p>müssen, sie steckte es weg und half doch [?]. Und so und heimlich hat sie pekuniär ausgeholfen [?]. Ich nannte sie oft: die Hl. Elisabeth.</p>
 <p>Wieviel Sorgen habe ich, im Bezug auf meine Krankheiten, ihr bereitet.</p>
 <p>1954 mein Nervenzusammenbruch, habe fast 7 Monate gelegen, und die Auswirkungen gingen noch viele Jahre weiter. Mutti war damals 39 Jahr alt.</p>
@@ -1074,7 +1212,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 88</h3>
+<span class="page-badge">Buchseite 88 <span class="page-badge-total">von 98</span></span>
 <p>wie hat sie mich nach der Operation gepflegt.</p>
 <p>Und auch das muß erwähnt werden: 10 Jahre hat uns der Krieg, mit allen seinen Auswirkungen, in unserer jungen Ehe geraubt, dann die Krankheiten und die Anspannungen, Ruhebedürftigkeit, Diät usw. Da blieb für eine Frau in den besten Jahren für das Sexualleben, für Vergnügungen an den Abendstunden, für unbeschwerte Feierlichkeiten [?] oder fröhliche Geselligkeiten nicht viel übrig. Ich war, wenn auch schuldlos, ein Versager. Sie hat es, ohne auch nur ein Wort zu verlieren, hingenommen, so, wie sie es am Traualtar versprochen hat.</p>
 <p>Ich danke Dir!</p>
@@ -1082,7 +1220,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 89</h3>
+<span class="page-badge">Buchseite 89 <span class="page-badge-total">von 98</span></span>
 <p><em>(Hier setzt sich die auf Buchseite 68 abgebrochene Geschichte um Gisela und Doris fort – „Fortsetzung Seite 89".)</em></p>
 <ul>
 <li>31.7.83. Der glückliche Zustand, den ich am Anfang zwischen Doris und Wolfgang geschildert habe, hatte keine lange Dauer. Wie wir von Karin erfahren haben, sitzt der Vater fast jeden Abend in der Kneipe und kommt randalierend nach Hause. Doris hat lange darüber nachgedacht und ist zu dem Entschluß gekommen, sich von Wolfgang zu trennen. Am 31.7. sind Doris und Karin zur Margarethenhöhe, Metzendorfstr. 94, in eine geräumige Erdgeschoßwohnung gezogen.</li>
@@ -1093,13 +1231,13 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 90</h3>
+<span class="page-badge">Buchseite 90 <span class="page-badge-total">von 98</span></span>
 <p>lebensgefährlich verändert hat, und er die Verantwortung nicht übernehmen könne. Im Krankenhaus haben sie alle möglichen Untersuchungen angestellt. Mutter hat wohl 14 Tage lang nur geschlafen. Auf Letzteres komme ich noch zurück. Sie bekam Vitaminspritzen, Dragees in jeder Form und Zusammensetzung. Nach 41 Tagen, am 6.3.84, konnte sie entlassen werden. Das Blutbild hatte sich etwas gebessert, sie hatte 2 lb [Pfund] zugenommen, bei der Einlieferung hatte sie in 10 Tagen 12 lb abgenommen. Sie war jetzt hellwach, ihr Gesicht hatte wieder Farbe, nur war sie wackelig auf den Beinen. Sie hatte eine perniziöse Anämie überstanden.</p>
 <p>Nun komme ich auf den oben angedeuteten Verdacht zurück: Bei Menschen, die seit Monaten oder Jahren in einem Zustand der Sorge,</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 91</h3>
+<span class="page-badge">Buchseite 91 <span class="page-badge-total">von 98</span></span>
 <p>der Überbeanspruchung, der Angst für die Seinen leben und nicht schlafen können (außer mit Schlaftabletten), bei diesen Menschen tritt plötzlich ein Kurzschluß in einer Gehirnzone ein. Alles, was im Organismus geschieht, wird vom Gehirn gelenkt. Als Beispiel führe ich an:</p>
 <p>1.) mein eigener plötzlicher Zusammenbruch 1954, nach pausenlos überanstrengter Tätigkeit.</p>
 <p>2.) Mutter wird zuckerkrank nach der Erkenntnis, daß Doris schwanger war.</p>
@@ -1107,10 +1245,10 @@
 <p>Alle diese Faktoren haben sich bei Mutter gestaut, bis es zu einer Anämie gekommen ist. Vollständige Ruhe und keine aufregenden Ereignisse führen</p>
 </section>
 
-<h2 id="kap-mutter-der-frau" style="margin-top:60px;">&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</h2><p class="intro" style="margin-top:-6px;">Josef schreibt hier über die Mutter seiner Frau Franziska (seine Schwiegermutter) und ihre Krankheit im Jahr 1984.</p>
+<div class="chapter-opener" id="kap-mutter-der-frau"><div class="chapter-eyebrow">Kapitel 5</div><h2>&bdquo;Aus dem Leben der Mutter meiner Frau&ldquo;</h2><p class="chapter-sub">Josef schreibt hier über die Mutter seiner Frau Franziska (seine Schwiegermutter) und ihre Krankheit im Jahr 1984.</p><div class="divider">&#8258; &#8258; &#8258;</div></div>
 
 <section class="chronik-seite">
-<h3>Buchseite 92</h3>
+<span class="page-badge">Buchseite 92 <span class="page-badge-total">von 98</span></span>
 <p><em>(Neues Kapitel, mit eigener Überschrift: „Aus dem Leben der Mutter meiner Frau" – Josef schreibt hier über die Mutter seiner Frau Franziska, also seine Schwiegermutter.)</em></p>
 <p><strong>Aus dem Leben der Mutter meiner Frau</strong></p>
 <p>zu einem Normalzustand, oder aber mildern mit Hilfe des Arztes den Zustand.</p>
@@ -1120,7 +1258,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 93</h3>
+<span class="page-badge">Buchseite 93 <span class="page-badge-total">von 98</span></span>
 <p><strong>Aus dem Leben der Mutter meiner Frau</strong> <em>(Fortsetzung)</em></p>
 <p>werden. 21.9. Mutter hat einen Eisenwert[?] von 285.</p>
 <p>24.9.84 Mutter wird entlassen, Blutdruck 130/80, Puls 78, Zucker 250. Ursache der Krankheit nicht gefunden. 7 kg Wasserverlust.</p>
@@ -1129,16 +1267,16 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 94</h3>
+<span class="page-badge">Buchseite 94 <span class="page-badge-total">von 98</span></span>
 <p><strong>Aus dem Leben der Mutter meiner Frau</strong> <em>(Fortsetzung)</em></p>
 <p>z.B. Rentenkürzung, im Falle meines Ablebens, da müssen auch unsere Einkünfte gekürzt werden. Wir zahlen bisher 50% der Staatsabgaben, obwohl wir den Keller (bis auf die Waschmaschine) nicht benutzen können. Den Garten sehen wir nur von oben. Strom, Gas und Wasser stehen (wenn Mutter allein verbrauchen würde) im Verhältnis 1:4. Eines unserer Kinder würde kaum Mutter zur Seite stehen.</p>
 <p>1.10.84 Gerhard[?] hat sich einen neuen PKW Kadett gekauft. Ich bin der eigentliche Anstifter gewesen. Ich hatte gesagt, daß der kleine Fiat keine 4 Jahre mehr laufen würde, dann hat er nur noch Schrottwert. Er solle sich einen guten Gebrauchtwagen kaufen und den Fiat noch günstig verkaufen. Gerhard[?] kauft sich einen Neuwagen, weil, wie er sagt, die Firma ihm äußerst günstige Bedingungen für den Kredit[?] bietet. Den Fiat hat er, wie erwähnt, an den Freund von Nicola für DM 1.000,00 verkaufen können.</p>
 </section>
 
-<h2 id="kap-eltern-der-frau" style="margin-top:60px;">&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</h2><p class="intro" style="margin-top:-6px;">Eine tabellarische &bdquo;Ergänzung zum vorhandenen Testament&ldquo;: eine laufende Geldrechnung über Zuwendungen an die Kinder Gisela, Doris und Günter, unterschrieben von Josef und Franziska Kister am 6. Oktober 1984. Hiermit endet die 101-seitige Chronik.</p>
+<div class="chapter-opener" id="kap-eltern-der-frau"><div class="chapter-eyebrow">Kapitel 6</div><h2>&bdquo;Aus dem Leben der Eltern meiner Frau&ldquo;</h2><p class="chapter-sub">Eine tabellarische &bdquo;Ergänzung zum vorhandenen Testament&ldquo;: eine laufende Geldrechnung über Zuwendungen an die Kinder Gisela, Doris und Günter, unterschrieben von Josef und Franziska Kister am 6. Oktober 1984. Hiermit endet die 101-seitige Chronik.</p><div class="divider">&#8258; &#8258; &#8258;</div></div>
 
 <section class="chronik-seite">
-<h3>Buchseite 95</h3>
+<span class="page-badge">Buchseite 95 <span class="page-badge-total">von 98</span></span>
 <p><em>(Neues Kapitel: „Aus dem Leben der Eltern meiner Frau" – vermutlich wieder von Josef geschrieben, als tabellarische Ergänzung zum Testament, mit einer laufenden Geldrechnung.)</em></p>
 <p><strong>Aus dem Leben der Eltern meiner Frau</strong></p>
 <p><em>„Ergänzung zum vorhandenen Testament."</em> (rot unterstrichen)</p>
@@ -1193,7 +1331,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 96</h3>
+<span class="page-badge">Buchseite 96 <span class="page-badge-total">von 98</span></span>
 <p><strong>Aus dem Leben der Eltern meiner Frau</strong> <em>(Fortsetzung, Übertrag: 205.684,80)</em></p>
 <p>1979: 29.8. Von der gesetzlichen Erbschaft[?] an die Großkinder[?] = 2 × 15.000,- habe ich mir DM 27.000,- erhalten. Als Ausgleich[?] zur Zahlung habe ich diese Summe erhalten und die Zusage bekommen, daß Nicola und Rüdiger je DM 1.500,00 erhalten. Die Kinder haben die Summen wie[?] erhalten. Ich habe aber Günter und Doris je 15.000,- ausbezahlt — 3.000,00</p>
 <table>
@@ -1232,7 +1370,7 @@
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 97</h3>
+<span class="page-badge">Buchseite 97 <span class="page-badge-total">von 98</span></span>
 <p><strong>Aus dem Leben der Eltern meiner Frau</strong> <em>(Fortsetzung und Abschluss dieses Kapitels, Übertrag: 215.417,80)</em></p>
 <p>1984 ab 2.2. erhält Gisela, wie auf Seite 93[?] genannt, je Monat DM 700,00.</p>
 <p>Die Summe, die sich mal ergibt, ist ein Vielfaches von dem, was Doris und Günter erhalten haben. Mutti und ich sind darüber einig geworden, daß nach dem Letztverbliebenen[?] alles, was von Sparkasse[?] ist, von Doris und Günter beansprucht werden kann. Auch das Bargeld, Postsparbücher (Doris hat die Vollmacht), Postscheckkonto (Gisela hat die Vollmacht, vielfach zuletzt im Altersteil[?] Postscheck) — ich besitze noch 10 (zehn) Stck. Goldstücke, auch die gehen je 5 Stck an Doris u. Günter. Doris weiß, wo diese untergebracht sind. Fotoapparat u. Blitzlicht, goldene Uhr gehen an Günter. Günter möge diese Familien-Chronik weiterführen.</p>
@@ -1244,7 +1382,7 @@ Franzi[?] Kister</p>
 </section>
 
 <section class="chronik-seite">
-<h3>Buchseite 98</h3>
+<span class="page-badge">Buchseite 98 <span class="page-badge-total">von 98</span></span>
 <p><strong>Aus dem Leben der Eltern meiner Frau</strong> <em>(Fortsetzung und Ende)</em></p>
 <p>Wie die vorgenannte Summe sich präzisiert[?], müssen Doris und Günter zusätzlich verrechnen. Jetzt, wo Mutter wieder im Haus ist, wäscht sie unsere Wäsche selbst, solange sie dazu in der Lage ist. Giselas Arbeit erstreckt sich auf Staubputzen und Saugen, damit ist sie in 2 bzw. 3 Stunden je Woche fertig.</p>
 <p>Von der Summe, die Gisela bis zum 31.1.84 erhalten hat, geht natürlich die an Doris und Günter gezahlten 57.000,00 ab!</p>
@@ -1259,7 +1397,7 @@ abzüglich 57.000,00
 
 <section id="illustrationen">
   <h2>Illustrationen zur Chronik</h2>
-  <p class="intro" style="max-width:var(--maxw); margin:0 auto 20px; text-align:center; font-style:italic; color:var(--ink-soft); font-size:15px;">F&uuml;nf nachtr&auml;glich angefertigte Illustrationen zu Szenen aus der Chronik.</p>
+  <p class="note" style="text-align:center; display:block; margin-bottom:24px;">F&uuml;nf nachtr&auml;glich angefertigte Illustrationen zu Szenen aus der Chronik.</p>
   <div class="illu-grid">
     <figure>
       <img src="images/illu-01-terror-1943.jpg" alt="Illustration: Terror des 2. Weltkrieges, Januar 1943">
@@ -1299,7 +1437,7 @@ abzüglich 57.000,00
 </section>
 
 <footer>
-  <div class="frak" style="font-size:22px; color:var(--accent); margin-bottom:8px;">Chronik der Familie Kister</div>
+  <div class="frak" style="font-size:24px; color:var(--accent); margin-bottom:8px;">Chronik der Familie Kister</div>
   Angelegt 1953 von Josef Kister &middot; digitalisiert und transkribiert 2026
 </footer>
 
@@ -1321,6 +1459,7 @@ abzüglich 57.000,00
   function unlock(){
     document.body.classList.remove("locked");
     try { localStorage.setItem(STORAGE_KEY, "1"); } catch(e){}
+    initInteractive();
   }
 
   try {
@@ -1350,6 +1489,44 @@ abzüglich 57.000,00
         }
       });
     });
+  }
+
+  var interactiveStarted = false;
+  function initInteractive(){
+    if (interactiveStarted) return;
+    interactiveStarted = true;
+
+    // reading progress bar
+    var bar = document.getElementById("progress-bar");
+    function updateBar(){
+      var h = document.documentElement;
+      var scrolled = h.scrollTop;
+      var max = h.scrollHeight - h.clientHeight;
+      var pct = max > 0 ? (scrolled / max) * 100 : 0;
+      if (bar) bar.style.width = pct + "%";
+    }
+    window.addEventListener("scroll", updateBar, { passive: true });
+    updateBar();
+
+    // scrollspy nav highlighting
+    try {
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll("nav.chapters a[href^='#']"));
+      var targets = navLinks.map(function(a){
+        return document.getElementById(a.getAttribute("href").slice(1));
+      }).filter(Boolean);
+      if (targets.length && "IntersectionObserver" in window){
+        var observer = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting){
+              navLinks.forEach(function(a){ a.classList.remove("active"); });
+              var match = navLinks.filter(function(a){ return a.getAttribute("href") === "#" + entry.target.id; })[0];
+              if (match && !match.classList.contains("nav-cta")) match.classList.add("active");
+            }
+          });
+        }, { rootMargin: "-45% 0px -50% 0px" });
+        targets.forEach(function(t){ observer.observe(t); });
+      }
+    } catch(e){}
   }
 })();
 </script>
